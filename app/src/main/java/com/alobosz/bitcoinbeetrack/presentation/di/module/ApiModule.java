@@ -1,4 +1,4 @@
-package com.alobosz.bitcoinbeetrack.di.module;
+package com.alobosz.bitcoinbeetrack.presentation.di.module;
 
 import android.app.Application;
 
@@ -42,7 +42,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(@Named("baseUrl") String baseUrl, Gson gson, OkHttpClient okHttpClient) {
+    Retrofit provideRetrofit(@BaseUrl String baseUrl, Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(baseUrl)

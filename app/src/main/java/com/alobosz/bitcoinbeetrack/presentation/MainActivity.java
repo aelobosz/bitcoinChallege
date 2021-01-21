@@ -1,4 +1,4 @@
-package com.alobosz.bitcoinbeetrack;
+package com.alobosz.bitcoinbeetrack.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,7 +7,11 @@ import android.view.View;
 
 import com.alobosz.bitcoinbeetrack.databinding.ActivityMainBinding;
 
+import javax.inject.Inject;
+
 public class MainActivity extends AppCompatActivity {
+    @Inject
+    MainViewModel mainViewModel;
     private ActivityMainBinding binding;
 
     @Override
