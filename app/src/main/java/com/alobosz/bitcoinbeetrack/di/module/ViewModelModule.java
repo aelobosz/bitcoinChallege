@@ -1,10 +1,10 @@
-package com.alobosz.bitcoinbeetrack.presentation.di.module;
+package com.alobosz.bitcoinbeetrack.di.module;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
-import com.alobosz.bitcoinbeetrack.presentation.util.ViewModelFactory;
+import com.alobosz.bitcoinbeetrack.util.ViewModelFactory;
 
 import dagger.Binds;
 import dagger.Module;

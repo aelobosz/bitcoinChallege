@@ -1,4 +1,4 @@
-package com.alobosz.bitcoinbeetrack.presentation.di.module;
+package com.alobosz.bitcoinbeetrack.di.module;
 
 import androidx.lifecycle.ViewModel;
 

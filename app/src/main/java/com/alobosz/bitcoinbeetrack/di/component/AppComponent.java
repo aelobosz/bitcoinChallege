@@ -1,13 +1,13 @@
-package com.alobosz.bitcoinbeetrack.presentation.di.component;
+package com.alobosz.bitcoinbeetrack.di.component;
 
 import android.app.Application;
 
-import com.alobosz.bitcoinbeetrack.presentation.di.module.ApiModule;
-import com.alobosz.bitcoinbeetrack.presentation.di.module.BaseUrl;
-import com.alobosz.bitcoinbeetrack.presentation.di.module.DataBaseModule;
-import com.alobosz.bitcoinbeetrack.presentation.di.module.ViewModelModule;
+import com.alobosz.bitcoinbeetrack.di.module.ApiModule;
+import com.alobosz.bitcoinbeetrack.di.module.BaseUrl;
+import com.alobosz.bitcoinbeetrack.di.module.DataBaseModule;
+import com.alobosz.bitcoinbeetrack.di.module.ViewInjector;
+import com.alobosz.bitcoinbeetrack.di.module.ViewModelModule;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
@@ -19,7 +19,8 @@ import dagger.Component;
         DataBaseModule.class,
         ViewModelModule.class
 })
-public interface AppComponent {
+public interface AppComponent extends ViewInjector{
+    @SuppressWarnings("UnusedReturnValue")
     @Component.Builder
     interface Builder {
         @BindsInstance
