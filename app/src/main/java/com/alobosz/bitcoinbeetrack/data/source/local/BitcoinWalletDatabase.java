@@ -1,26 +1,18 @@
 package com.alobosz.bitcoinbeetrack.data.source.local;
 
-import androidx.annotation.NonNull;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
+import androidx.room.Database;
 import androidx.room.RoomDatabase;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-public class BitcoinWalletDatabase extends RoomDatabase {
-    @NonNull
-    @Override
-    protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration config) {
-        return null;
-    }
+import com.alobosz.bitcoinbeetrack.data.model.BitcoinEntity;
+import com.alobosz.bitcoinbeetrack.data.source.local.dao.BitcoinDao;
+import com.alobosz.bitcoinbeetrack.util.DataBaseConstants;
 
-    @NonNull
-    @Override
-    protected InvalidationTracker createInvalidationTracker() {
-        return null;
-    }
+@Database(
+        entities = {BitcoinEntity.class},
+        version = DataBaseConstants.DATABASE_VERSION,
+        exportSchema = false
+)
+public abstract class BitcoinWalletDatabase extends RoomDatabase {
 
-    @Override
-    public void clearAllTables() {
-
-    }
+    public abstract BitcoinDao bitcoinDao();
 }
