@@ -1,38 +1,41 @@
 package com.alobosz.bitcoinbeetrack.presentation.transactions;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alobosz.bitcoinbeetrack.R;
+import androidx.fragment.app.Fragment;
 import com.alobosz.bitcoinbeetrack.databinding.FragmentOrderHistoryBinding;
-import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
+import javax.inject.Inject;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasAndroidInjector;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OrderHistoryFragment#newInstance} factory method to
+ * Use the {@link OrderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderHistoryFragment extends Fragment {
+public class OrderFragment extends Fragment implements HasAndroidInjector {
+    @Inject
+    DispatchingAndroidInjector<Object> androidInjector;
+
+    @Override
+    public AndroidInjector<Object> androidInjector() {
+        return androidInjector;
+    }
+
     private FragmentOrderHistoryBinding binding;
 
-    public OrderHistoryFragment() {
+    public OrderFragment() {
         // Required empty public constructor
     }
 
-    public static OrderHistoryFragment newInstance() {
-        return new OrderHistoryFragment();
+    public static OrderFragment newInstance() {
+        return new OrderFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ApplicationBitcoinWallet.appComponent.inject(this);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

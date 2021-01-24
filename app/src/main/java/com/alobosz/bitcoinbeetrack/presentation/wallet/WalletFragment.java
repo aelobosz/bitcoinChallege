@@ -1,38 +1,44 @@
 package com.alobosz.bitcoinbeetrack.presentation.wallet;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alobosz.bitcoinbeetrack.R;
-import com.alobosz.bitcoinbeetrack.databinding.FragmentOrderHistoryBinding;
+import androidx.fragment.app.Fragment;
+
 import com.alobosz.bitcoinbeetrack.databinding.FragmentWalletBinding;
+
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasAndroidInjector;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link WalletFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WalletFragment extends Fragment {
+public class WalletFragment extends Fragment implements HasAndroidInjector {
+    @Inject
+    DispatchingAndroidInjector<Object> androidInjector;
+
+    @Override
+    public AndroidInjector<Object> androidInjector() {
+        return androidInjector;
+    }
+
     private FragmentWalletBinding binding;
 
     public WalletFragment() {
         // Required empty public constructor
     }
 
-    public static WalletFragment newInstance(String param1, String param2) {
+    public static WalletFragment newInstance() {
         return new WalletFragment();
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,4 +53,6 @@ public class WalletFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+
 }
