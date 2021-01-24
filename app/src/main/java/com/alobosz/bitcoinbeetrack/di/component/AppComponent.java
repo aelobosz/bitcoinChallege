@@ -1,11 +1,9 @@
 package com.alobosz.bitcoinbeetrack.di.component;
 
-import android.app.Application;
-
 import com.alobosz.bitcoinbeetrack.di.module.ApiModule;
 import com.alobosz.bitcoinbeetrack.di.module.BaseUrl;
 import com.alobosz.bitcoinbeetrack.di.module.DataBaseModule;
-import com.alobosz.bitcoinbeetrack.di.module.ViewInjector;
+import com.alobosz.bitcoinbeetrack.di.module.RepositoryModule;
 import com.alobosz.bitcoinbeetrack.di.module.ViewModelModule;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 
@@ -21,6 +19,7 @@ import dagger.android.AndroidInjector;
         ApiModule.class,
         DataBaseModule.class,
         ViewModelModule.class,
+        RepositoryModule.class,
         AndroidInjectionModule.class
 })
 public interface AppComponent extends AndroidInjector<ApplicationBitcoinWallet> {

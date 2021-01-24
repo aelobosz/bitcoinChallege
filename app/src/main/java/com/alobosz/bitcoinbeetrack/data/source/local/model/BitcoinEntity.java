@@ -1,4 +1,4 @@
-package com.alobosz.bitcoinbeetrack.data.model;
+package com.alobosz.bitcoinbeetrack.data.source.local.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

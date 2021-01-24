@@ -3,6 +3,10 @@ plugins {
     id 'kotlin-android'
 }
 
+def versionMajor = 1
+def versionMinor = 0
+def versionPatch = 0
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -11,14 +15,18 @@ android {
         applicationId "com.alobosz.bitcoinbeetrack"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "BASE_URL", "\"https://api.blockcypher.com/v1/btc/test3/\""
+
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -39,9 +47,9 @@ android {
 }
 
 def retrofit_version = '2.9.0'
-def rxjava_version = '2.1.0'
+def rxjava_version = '2.2.9'
 def lifecycle_version = '2.2.0'
-def dagger_version = '2.28.1'
+def dagger_version = '2.28.3'
 def room_version = '2.2.6'
 def multidex_version = "2.0.1"
 
@@ -100,4 +108,12 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'org.jetbrains:annotations:18.0.0'
+
+    /* QR */
+    implementation 'com.journeyapps:zxing-android-embedded:3.0.2@aar'
+    implementation 'com.google.zxing:core:3.2.0'
+
+    /* Animations */
+    implementation 'com.airbnb.android:lottie:3.4.2'
+
 }

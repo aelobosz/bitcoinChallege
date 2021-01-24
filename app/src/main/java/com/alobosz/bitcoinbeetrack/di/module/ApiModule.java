@@ -2,7 +2,7 @@ package com.alobosz.bitcoinbeetrack.di.module;
 
 import android.app.Application;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.ApiBitcoin;
+import com.alobosz.bitcoinbeetrack.data.source.remote.ApiBitcoinWallet;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,8 +51,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ApiBitcoin provideApiClient(Retrofit retrofit)
+    ApiBitcoinWallet provideApiClient(Retrofit retrofit)
      {
-        return retrofit.create(ApiBitcoin.class);
+        return retrofit.create(ApiBitcoinWallet.class);
     }
 }

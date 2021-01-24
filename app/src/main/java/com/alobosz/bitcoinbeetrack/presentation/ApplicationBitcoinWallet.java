@@ -2,9 +2,10 @@ package com.alobosz.bitcoinbeetrack.presentation;
 
 import android.app.Application;
 
+import com.alobosz.bitcoinbeetrack.BuildConfig;
 import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.di.component.AppComponent;
-import com.alobosz.bitcoinbeetrack.di.component.DaggerAppComponent;
+
 import androidx.multidex.MultiDexApplication;
 
 
@@ -18,13 +19,14 @@ public class ApplicationBitcoinWallet extends MultiDexApplication implements Has
     public static AppComponent appComponent;
     @Inject
     DispatchingAndroidInjector<Object> androidInjector;
+
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent =  DaggerAppComponent.builder()
+       /* appComponent = DaggerAppComponent.builder()
                 .application(this)
-                .baseUrl("https://google.com")
-                .build();
+                .baseUrl(BuildConfig.BASE_URL)
+                .build();*/
     }
 
     @Override

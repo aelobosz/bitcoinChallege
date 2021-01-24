@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 import com.alobosz.bitcoinbeetrack.databinding.FragmentWalletBinding;
+import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 
 import javax.inject.Inject;
 
@@ -20,14 +21,7 @@ import dagger.android.HasAndroidInjector;
  * Use the {@link WalletFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WalletFragment extends Fragment implements HasAndroidInjector {
-    @Inject
-    DispatchingAndroidInjector<Object> androidInjector;
-
-    @Override
-    public AndroidInjector<Object> androidInjector() {
-        return androidInjector;
-    }
+public class WalletFragment extends BaseFragment {
 
     private FragmentWalletBinding binding;
 
