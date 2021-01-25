@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.alobosz.bitcoinbeetrack.databinding.FragmentWalletBinding;
+import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 
 import javax.inject.Inject;
@@ -33,6 +35,11 @@ public class WalletFragment extends BaseFragment {
         return new WalletFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ApplicationBitcoinWallet.appComponent.inject(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

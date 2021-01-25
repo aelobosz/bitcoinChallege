@@ -10,17 +10,17 @@
         android:id="@+id/about_tv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pfsans_pro_reg"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/pfsans_pro_semibold"
         android:gravity="center_horizontal"
         android:text="@string/create_address"
         android:textAlignment="center"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_title"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_xlarge"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,13 +32,13 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/pfsans_pro_reg"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:background="@drawable/rounded_button"
+        android:fontFamily="@font/pfsans_pro_reg"
         android:text="@string/generate"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_large"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:fontFamily="@font/pfsans_pro_reg"
+        android:fontFamily="@font/pfsans_pro_bold"
         android:text="@string/btc_address"
         android:textSize="@dimen/text_medium"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,12 +65,12 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@font/pfsans_pro_semibold"
-        tools:text="azzdaxasfsfqwerasasdasfzzzz"
         android:gravity="center"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        tools:text="azzdaxasfsfqwerasasdasfzzzz" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -94,6 +94,18 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:tint="@color/colorAccent" />
+        app:tint="@color/colorPrimary" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

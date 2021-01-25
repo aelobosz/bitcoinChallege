@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.databinding.ActivityMainBinding;
+import com.alobosz.bitcoinbeetrack.presentation.base.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -27,14 +28,7 @@ import dagger.android.HasAndroidInjector;
 
 import static com.alobosz.bitcoinbeetrack.util.NavigationExtensionsKt.setupWithNavController;
 
-public class MainActivity extends AppCompatActivity implements HasAndroidInjector {
-    @Inject
-    DispatchingAndroidInjector<Object> androidInjector;
-
-    @Override
-    public AndroidInjector<Object> androidInjector() {
-        return androidInjector;
-    }
+public class MainActivity extends BaseActivity {
 
     @Inject
     MainViewModel mainViewModel;

@@ -1,4 +1,4 @@
-package com.alobosz.bitcoinbeetrack.di.module;
+package com.alobosz.bitcoinbeetrack.di.util;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

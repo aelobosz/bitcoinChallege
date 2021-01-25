@@ -1,38 +1,38 @@
 package com.alobosz.bitcoinbeetrack.di.component;
 
+import android.content.Context;
+
 import com.alobosz.bitcoinbeetrack.di.module.ApiModule;
-import com.alobosz.bitcoinbeetrack.di.module.BaseUrl;
-import com.alobosz.bitcoinbeetrack.di.module.DataBaseModule;
 import com.alobosz.bitcoinbeetrack.di.module.RepositoryModule;
+import com.alobosz.bitcoinbeetrack.di.util.BaseUrl;
+import com.alobosz.bitcoinbeetrack.di.module.DataBaseModule;
 import com.alobosz.bitcoinbeetrack.di.module.ViewModelModule;
+import com.alobosz.bitcoinbeetrack.di.util.InjectViews;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import dagger.android.AndroidInjectionModule;
-import dagger.android.AndroidInjector;
 
 @Singleton
 @Component(modules = {
         ApiModule.class,
         DataBaseModule.class,
         ViewModelModule.class,
-        RepositoryModule.class,
-        AndroidInjectionModule.class
+        RepositoryModule.class
 })
-public interface AppComponent extends AndroidInjector<ApplicationBitcoinWallet> {
+public interface AppComponent extends InjectViews {
     @SuppressWarnings("UnusedReturnValue")
     @Component.Builder
     interface Builder {
         @BindsInstance
-        Builder application(ApplicationBitcoinWallet application);
+        Builder context(Context context);
 
         @BindsInstance
         Builder baseUrl(@BaseUrl String baseUrl);
 
         AppComponent build();
     }
-
 }

@@ -9,8 +9,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import javax.inject.Singleton;
 
+@Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {
+
+    private static final String TAG = "ViewModelProviderFactor";
+
     private final Map<Class<? extends ViewModel>, Provider<ViewModel>> creators;
 
     @Inject
@@ -18,9 +23,8 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         this.creators = creators;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <T extends ViewModel> @NotNull T create(@NotNull Class<T> modelClass) {
+    public <T extends ViewModel> T create(Class<T> modelClass) {
         Provider<? extends ViewModel> creator = creators.get(modelClass);
         if (creator == null) {
             for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {

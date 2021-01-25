@@ -24,7 +24,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "String", "BASE_URL", "\"https://api.blockcypher.com/v1/btc/test3/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.blockcypher.com/\""
 
         }
         release {
@@ -94,8 +94,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
 
     /* RxJava */
-    implementation "io.reactivex.rxjava2:rxandroid:$rxjava_version"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
 
     /* Dagger */
     implementation "com.google.dagger:dagger:$dagger_version"

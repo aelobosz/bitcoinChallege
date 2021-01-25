@@ -3,7 +3,7 @@ package com.alobosz.bitcoinbeetrack.domain.usecase.base;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
-public class BaseUseCase {
+abstract public class BaseUseCase {
     protected Disposable lastDisposable;
     protected CompositeDisposable compositeDisposable;
 
@@ -13,7 +13,7 @@ public class BaseUseCase {
         }
     }
 
-    public void dispose(){
+    public void dispose() {
         compositeDisposable.clear();
     }
 }

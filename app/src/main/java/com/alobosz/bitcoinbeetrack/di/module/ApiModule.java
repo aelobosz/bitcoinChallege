@@ -1,8 +1,10 @@
 package com.alobosz.bitcoinbeetrack.di.module;
 
 import android.app.Application;
+import android.content.Context;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.ApiBitcoinWallet;
+import com.alobosz.bitcoinbeetrack.data.source.remote.ApiBlockCypher;
+import com.alobosz.bitcoinbeetrack.di.util.BaseUrl;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,15 +16,16 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class ApiModule {
     @Provides
     @Singleton
-    Cache provideHttpCache(Application application) {
+    Cache provideHttpCache(Context context) {
         int cacheSize = 10 * 1024 * 1024;
-        return new Cache(application.getCacheDir(), cacheSize);
+        return new Cache(context.getCacheDir(), cacheSize);
     }
 
     @Provides
@@ -44,6 +47,7 @@ public class ApiModule {
     Retrofit provideRetrofit(@BaseUrl String baseUrl, Gson gson, OkHttpClient okHttpClient) {
         return new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .build();
@@ -51,8 +55,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ApiBitcoinWallet provideApiClient(Retrofit retrofit)
+    ApiBlockCypher provideApiClient(Retrofit retrofit)
      {
-        return retrofit.create(ApiBitcoinWallet.class);
+        return retrofit.create(ApiBlockCypher.class);
     }
 }
