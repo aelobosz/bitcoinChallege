@@ -4,15 +4,9 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GenerateAddressUseCase;
 
-import java.util.function.Function;
-
 import javax.inject.Inject;
-
-import io.reactivex.Single;
-import kotlin.Unit;
 
 public class AddressViewModel extends ViewModel {
     private final GenerateAddressUseCase generateAddressUseCase;

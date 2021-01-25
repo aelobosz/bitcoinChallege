@@ -3,14 +3,12 @@ package com.alobosz.bitcoinbeetrack.di.component;
 import android.content.Context;
 
 import com.alobosz.bitcoinbeetrack.di.module.ApiModule;
-import com.alobosz.bitcoinbeetrack.di.module.RepositoryModule;
-import com.alobosz.bitcoinbeetrack.di.util.BaseUrl;
 import com.alobosz.bitcoinbeetrack.di.module.DataBaseModule;
+import com.alobosz.bitcoinbeetrack.di.module.RepositoryModule;
 import com.alobosz.bitcoinbeetrack.di.module.ViewModelModule;
+import com.alobosz.bitcoinbeetrack.di.util.BaseUrl;
 import com.alobosz.bitcoinbeetrack.di.util.InjectViews;
-import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import dagger.BindsInstance;

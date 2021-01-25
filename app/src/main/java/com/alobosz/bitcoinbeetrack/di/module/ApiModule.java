@@ -1,6 +1,5 @@
 package com.alobosz.bitcoinbeetrack.di.module;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.alobosz.bitcoinbeetrack.data.source.remote.ApiBlockCypher;
