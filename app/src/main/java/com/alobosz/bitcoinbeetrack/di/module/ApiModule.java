@@ -14,6 +14,7 @@ import dagger.Module;
 import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -37,8 +38,16 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkhttpClient(Cache cache) {
-        return new OkHttpClient.Builder().cache(cache).build();
+    HttpLoggingInterceptor provideLoggingInterceptor() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        return interceptor;
+    }
+
+    @Provides
+    @Singleton
+    OkHttpClient provideOkhttpClient(Cache cache, HttpLoggingInterceptor loggingInterceptor) {
+        return new OkHttpClient.Builder().cache(cache).addInterceptor(loggingInterceptor).build();
     }
 
     @Provides
@@ -54,8 +63,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ApiBlockCypher provideApiClient(Retrofit retrofit)
-     {
+    ApiBlockCypher provideApiClient(Retrofit retrofit) {
         return retrofit.create(ApiBlockCypher.class);
     }
 }

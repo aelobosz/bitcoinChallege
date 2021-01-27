@@ -3,6 +3,8 @@ package com.alobosz.bitcoinbeetrack.data.repository;
 import com.alobosz.bitcoinbeetrack.data.source.local.ILocalDataSource;
 import com.alobosz.bitcoinbeetrack.data.source.remote.IRemoteDataSource;
 import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
+import com.alobosz.bitcoinbeetrack.data.source.remote.model.Balance;
+import com.alobosz.bitcoinbeetrack.data.source.remote.model.Transaction;
 import com.alobosz.bitcoinbeetrack.domain.repository.IWalletRepository;
 
 import javax.inject.Inject;
@@ -25,6 +27,16 @@ public class WalletRepository implements IWalletRepository {
     @Override
     public Single<Address> generateAddress() {
         return remoteDataSource.generateAddress();
+    }
+
+    @Override
+    public Single<Balance> getBalance() {
+        return null;
+    }
+
+    @Override
+    public Single<Transaction> getTransactions() {
+        return null;
     }
 }
 

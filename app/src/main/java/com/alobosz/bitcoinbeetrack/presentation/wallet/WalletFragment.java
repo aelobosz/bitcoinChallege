@@ -49,5 +49,4 @@ public class WalletFragment extends BaseFragment {
         binding = null;
     }
 
-
 }

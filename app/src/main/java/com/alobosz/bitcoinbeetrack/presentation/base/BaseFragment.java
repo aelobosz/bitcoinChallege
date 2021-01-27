@@ -11,4 +11,5 @@ abstract public class BaseFragment extends Fragment{
     @Inject
     public ViewModelFactory viewModelFactory;
 
+
 }

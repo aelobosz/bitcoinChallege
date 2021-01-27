@@ -1,6 +1,6 @@
 package com.alobosz.bitcoinbeetrack.domain.usecase;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
+import com.alobosz.bitcoinbeetrack.data.source.remote.model.Balance;
 import com.alobosz.bitcoinbeetrack.domain.repository.IWalletRepository;
 import com.alobosz.bitcoinbeetrack.domain.usecase.base.BaseSingleUseCase;
 
@@ -10,18 +10,18 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-public class GenerateAddressUseCase extends BaseSingleUseCase<Address> {
+public class GetBalanceUseCase extends BaseSingleUseCase<Balance> {
     private final IWalletRepository repository;
 
     @Inject
-    public GenerateAddressUseCase(IWalletRepository iWalletRepository) {
-        this.repository = iWalletRepository;
-    }
+    GetBalanceUseCase(IWalletRepository repository) {
+        this.repository = repository;
 
+    }
 
     @NotNull
     @Override
-    public Single<Address> buildSingleUseCase() {
-        return repository.generateAddress();
+    public Single<Balance> buildSingleUseCase() {
+        return repository.getBalance();
     }
 }

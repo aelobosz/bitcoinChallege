@@ -4,8 +4,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
 abstract public class BaseUseCase {
-    protected Disposable lastDisposable;
-    protected CompositeDisposable compositeDisposable;
+    protected Disposable lastDisposable = null;
+    protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public void disposeLast() {
         if (null != lastDisposable && lastDisposable.isDisposed()) {

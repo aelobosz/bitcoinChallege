@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.alobosz.bitcoinbeetrack.R;
+import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
 import com.alobosz.bitcoinbeetrack.databinding.FragmentAddressCreatorBinding;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
+import com.alobosz.bitcoinbeetrack.presentation.base.Result;
+import com.alobosz.bitcoinbeetrack.presentation.base.Status;
+import com.alobosz.bitcoinbeetrack.util.QrGenerator;
+
+import org.jetbrains.annotations.NotNull;
+
+import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -42,25 +52,58 @@ public class AddressFragment extends BaseFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentAddressCreatorBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
-        return view;
+        return binding.getRoot();
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel.isLoad().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean isLoading) {
-                binding.progress.getRoot().setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        observe();
+
+        if (viewModel.generateAddressLiveData().getValue() == null
+                || viewModel.generateAddressLiveData().getValue().status == Status.ERROR)
+            viewModel.generateAddress();
+
+        binding.clipboard.setOnClickListener(v -> {
+            Toast.makeText(getContext(), getString(R.string.copied_clipboard), Toast.LENGTH_SHORT).show();
+            copyToClipboard(getContext(), binding.walletAddress.getText().toString());
+
+        });
+        binding.materialButton.setOnClickListener(v -> {
+            viewModel.generateAddress();
+        });
+
+        binding.save.setOnClickListener(v -> {
+            viewModel.saveAddress(binding.walletAddress.getText().toString());
+        });
+    }
+
+    @SuppressWarnings("rawtypes")
+    private void observe() {
+        viewModel.generateAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
+            switch (result.status) {
+                case LOADING:
+                    binding.progress.getRoot().setVisibility(View.VISIBLE);
+                    break;
+                case SUCCESS:
+                    Address address = (Address) result.data;
+                    binding.progress.getRoot().setVisibility(View.GONE);
+                    if (address != null) {
+                        binding.imageView.setImageBitmap(QrGenerator.createQR(
+                                address.getAddress(), 150, 150));
+                        binding.walletAddress.setText(address.getAddress());
+                    }
+                    break;
+                default:
+                    binding.progress.getRoot().setVisibility(View.GONE);
             }
         });
 
-        viewModel.generateAddress();
     }
 
     @Override

@@ -6,8 +6,11 @@
     <string name="title_addresses">Addresses</string>
     <string name="title_orders">History</string>
     <string name="title_wallet">My Wallet</string>
-    <string name="generate">Generate</string>
+    <string name="generate">Create new</string>
     <string name="create_address">Create Address</string>
     <string name="btc_address">BTC address</string>
     <string name="generating">Loading</string>
+    <string name="address">address</string>
+    <string name="copied_clipboard">copied to clipboard</string>
+    <string name="save">Save</string>
 </resources>

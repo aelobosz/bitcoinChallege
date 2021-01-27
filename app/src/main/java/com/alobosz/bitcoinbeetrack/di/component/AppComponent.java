@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.alobosz.bitcoinbeetrack.di.module.ApiModule;
 import com.alobosz.bitcoinbeetrack.di.module.DataBaseModule;
+import com.alobosz.bitcoinbeetrack.di.module.GlideModule;
 import com.alobosz.bitcoinbeetrack.di.module.RepositoryModule;
 import com.alobosz.bitcoinbeetrack.di.module.ViewModelModule;
 import com.alobosz.bitcoinbeetrack.di.util.BaseUrl;
@@ -19,10 +20,10 @@ import dagger.Component;
         ApiModule.class,
         DataBaseModule.class,
         ViewModelModule.class,
-        RepositoryModule.class
+        RepositoryModule.class,
+        GlideModule.class
 })
 public interface AppComponent extends InjectViews {
-    @SuppressWarnings("UnusedReturnValue")
     @Component.Builder
     interface Builder {
         @BindsInstance

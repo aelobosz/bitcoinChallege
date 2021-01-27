@@ -4,10 +4,12 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
+
 abstract class BaseSingleUseCase<T> : BaseUseCase() {
 
-    internal abstract fun buildSingleUseCase(): Single<T>
+    abstract fun buildSingleUseCase(): Single<T>
 
+    @JvmOverloads
     fun execute(
             onSuccess: ((t: T) -> Unit),
             onError: ((t: Throwable) -> Unit),

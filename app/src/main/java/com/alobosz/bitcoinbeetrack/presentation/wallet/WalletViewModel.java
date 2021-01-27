@@ -4,16 +4,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.alobosz.bitcoinbeetrack.domain.usecase.GetBalanceUseCase;
+
+import javax.inject.Inject;
+
 public class WalletViewModel extends ViewModel {
+    @Inject
+    public WalletViewModel(GetBalanceUseCase useCase){
 
-    private MutableLiveData<String> mText;
-
-    public WalletViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
     }
 }

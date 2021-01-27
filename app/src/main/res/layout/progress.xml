@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/progressSlim"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
@@ -13,7 +12,7 @@
         android:id="@+id/progress_bar"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        app:lottie_rawRes="@raw/progress"
+        app:lottie_rawRes="@raw/loading"
         android:layout_width="@dimen/lottie_anim_size"
         android:layout_height="@dimen/lottie_anim_size"
         android:layout_marginBottom="16dp" />
@@ -21,10 +20,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:gravity="center"
+        android:fontFamily="@font/pfsans_pro_semibold"
         android:text="@string/generating"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_large" />
 
 </LinearLayout>

@@ -8,31 +8,36 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.alobosz.bitcoinbeetrack.databinding.FragmentOrderHistoryBinding;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
+import com.alobosz.bitcoinbeetrack.presentation.addresses.AddressViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link OrderFragment#newInstance} factory method to
+ * Use the {@link TransactionFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OrderFragment extends BaseFragment {
+public class TransactionFragment extends BaseFragment {
     private FragmentOrderHistoryBinding binding;
+    private TransactionViewModel viewModel;
 
-    public OrderFragment() {
+    public TransactionFragment() {
         // Required empty public constructor
     }
 
-    public static OrderFragment newInstance() {
-        return new OrderFragment();
+    public static TransactionFragment newInstance() {
+        return new TransactionFragment();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ApplicationBitcoinWallet.appComponent.inject(this);
+        viewModel = new ViewModelProvider(this, viewModelFactory).get(TransactionViewModel.class);
+
     }
 
     @Override
@@ -52,4 +57,5 @@ public class OrderFragment extends BaseFragment {
         super.onDestroyView();
         binding = null;
     }
+
 }
