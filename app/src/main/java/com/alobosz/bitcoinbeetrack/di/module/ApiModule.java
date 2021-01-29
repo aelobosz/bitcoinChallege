@@ -2,7 +2,7 @@ package com.alobosz.bitcoinbeetrack.di.module;
 
 import android.content.Context;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.ApiBlockCypher;
+import com.alobosz.bitcoinbeetrack.data.source.remote.BlockCypherAddressApi;
 import com.alobosz.bitcoinbeetrack.di.util.BaseUrl;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
@@ -63,7 +63,7 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    ApiBlockCypher provideApiClient(Retrofit retrofit) {
-        return retrofit.create(ApiBlockCypher.class);
+    BlockCypherAddressApi provideApiClient(Retrofit retrofit) {
+        return retrofit.create(BlockCypherAddressApi.class);
     }
 }

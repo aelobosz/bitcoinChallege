@@ -10,6 +10,13 @@ public class Address {
     private String address;
     private String wif;
 
+    public Address(String _private, String _public, String address, String wif) {
+        this._private = _private;
+        this._public = _public;
+        this.address = address;
+        this.wif = wif;
+    }
+
     public String get_private() {
         return _private;
     }

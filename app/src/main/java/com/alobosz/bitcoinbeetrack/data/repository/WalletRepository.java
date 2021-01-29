@@ -1,15 +1,15 @@
 package com.alobosz.bitcoinbeetrack.data.repository;
 
+import com.alobosz.bitcoinbeetrack.data.mapper.DataMapper;
 import com.alobosz.bitcoinbeetrack.data.source.local.ILocalDataSource;
 import com.alobosz.bitcoinbeetrack.data.source.remote.IRemoteDataSource;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Balance;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Transaction;
+import com.alobosz.bitcoinbeetrack.domain.model.Address;
+import com.alobosz.bitcoinbeetrack.domain.model.Balance;
+import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 import com.alobosz.bitcoinbeetrack.domain.repository.IWalletRepository;
 
 import javax.inject.Inject;
 
-import io.reactivex.Single;
 import io.reactivex.Single;
 
 public class WalletRepository implements IWalletRepository {
@@ -35,8 +35,13 @@ public class WalletRepository implements IWalletRepository {
     }
 
     @Override
-    public Single<Transaction> getTransactions() {
+    public Single<Transactions> getTransactions() {
         return null;
+    }
+
+    @Override
+    public Single<Long> saveAddress(Address address) {
+        return localDataSource.saveAddress(DataMapper.toEntity(address));
     }
 }
 

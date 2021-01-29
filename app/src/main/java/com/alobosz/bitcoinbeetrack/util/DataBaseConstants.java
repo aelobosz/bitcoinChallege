@@ -6,5 +6,5 @@ public class DataBaseConstants {
     public final static int DATABASE_VERSION = 1;
 
     /* Tables */
-    public final static String TABLE_BITCOIN = "bitcoin";
+    public final static String TABLE_ADDRESS = "addressTable";
 }

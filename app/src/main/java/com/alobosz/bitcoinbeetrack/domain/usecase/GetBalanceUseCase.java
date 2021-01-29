@@ -1,6 +1,7 @@
 package com.alobosz.bitcoinbeetrack.domain.usecase;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Balance;
+import com.alobosz.bitcoinbeetrack.data.source.remote.model.BalanceDTO;
+import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.domain.repository.IWalletRepository;
 import com.alobosz.bitcoinbeetrack.domain.usecase.base.BaseSingleUseCase;
 

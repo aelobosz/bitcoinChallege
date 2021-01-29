@@ -1,33 +1,40 @@
 package com.alobosz.bitcoinbeetrack.data.source.remote;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Balance;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Transaction;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
+import com.alobosz.bitcoinbeetrack.data.mapper.DataMapper;
+import com.alobosz.bitcoinbeetrack.domain.model.Address;
+import com.alobosz.bitcoinbeetrack.domain.model.Balance;
+import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 
 import javax.inject.Inject;
 
 import io.reactivex.Single;
 
 public class RemoteDataSource implements IRemoteDataSource {
-    private final ApiBlockCypher apiBlockCypher;
+    private final BlockCypherAddressApi apiBlockCypher;
 
     @Inject
-    public RemoteDataSource(ApiBlockCypher apiBlockCypher) {
-        this.apiBlockCypher = apiBlockCypher;
+    public RemoteDataSource(BlockCypherAddressApi blockCypherAddressApi) {
+        this.apiBlockCypher = blockCypherAddressApi;
     }
 
     @Override
     public Single<Address> generateAddress() {
-        return apiBlockCypher.generateAddress();
+
+        return apiBlockCypher.generateAddress().map(DataMapper::toAddress);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public Single<Transaction> getTransactions(String address) {
-        return apiBlockCypher.getAddressTransactions(address);
+    public Single<Transactions> getTransactions(String address) {
+        return apiBlockCypher.getAddressTransactions(address).map(DataMapper::toTransactions);
     }
 
     @Override
     public Single<Balance> getBalance(String address) {
-        return apiBlockCypher.getAddressBalance(address);
+        return apiBlockCypher.getAddressBalance(address).map(DataMapper::toBalance);
     }
 }

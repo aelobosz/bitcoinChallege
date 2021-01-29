@@ -13,8 +13,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.alobosz.bitcoinbeetrack.R;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
 import com.alobosz.bitcoinbeetrack.databinding.FragmentAddressCreatorBinding;
+import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
@@ -58,7 +58,6 @@ public class AddressFragment extends BaseFragment {
         return binding.getRoot();
     }
 
-    @SuppressWarnings("rawtypes")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -69,18 +68,14 @@ public class AddressFragment extends BaseFragment {
                 || viewModel.generateAddressLiveData().getValue().status == Status.ERROR)
             viewModel.generateAddress();
 
-        binding.clipboard.setOnClickListener(v -> {
+        binding.walletAddressContainer.clipboard.setOnClickListener(v -> {
             Toast.makeText(getContext(), getString(R.string.copied_clipboard), Toast.LENGTH_SHORT).show();
-            copyToClipboard(getContext(), binding.walletAddress.getText().toString());
+            copyToClipboard(getContext(), binding.walletAddressContainer.walletAddress.getText().toString());
 
         });
-        binding.materialButton.setOnClickListener(v -> {
-            viewModel.generateAddress();
-        });
+        binding.materialButton.setOnClickListener(v -> viewModel.generateAddress());
 
-        binding.save.setOnClickListener(v -> {
-            viewModel.saveAddress(binding.walletAddress.getText().toString());
-        });
+        binding.save.setOnClickListener(v -> viewModel.saveAddress());
     }
 
     @SuppressWarnings("rawtypes")
@@ -94,9 +89,9 @@ public class AddressFragment extends BaseFragment {
                     Address address = (Address) result.data;
                     binding.progress.getRoot().setVisibility(View.GONE);
                     if (address != null) {
-                        binding.imageView.setImageBitmap(QrGenerator.createQR(
+                        binding.walletView.imageQR.setImageBitmap(QrGenerator.createQR(
                                 address.getAddress(), 150, 150));
-                        binding.walletAddress.setText(address.getAddress());
+                        binding.walletAddressContainer.walletAddress.setText(address.getAddress());
                     }
                     break;
                 default:

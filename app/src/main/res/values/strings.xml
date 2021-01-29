@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BitcoinBeeTrack</string>
+    <string name="app_name">BeeWallet</string>
     <string name="base_url">https://google.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_wallet">MainActivity</string>
@@ -13,4 +13,7 @@
     <string name="address">address</string>
     <string name="copied_clipboard">copied to clipboard</string>
     <string name="save">Save</string>
+    <string name="balance">Balance</string>
+    <string name="final_balance">Final balance</string>
+    <string name="unconfirmed_balance">Unconfirmed balance</string>
 </resources>

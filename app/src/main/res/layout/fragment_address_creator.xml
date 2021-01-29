@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="@dimen/title_margin_top"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/pfsans_pro_semibold"
             android:gravity="center_horizontal"
@@ -30,8 +30,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/materialButton"
@@ -40,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
             android:background="@drawable/rounded_button"
             android:backgroundTint="@color/white"
             android:fontFamily="@font/pfsans_pro_bold"
@@ -53,61 +51,30 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/save" />
+            app:layout_constraintTop_toBottomOf="@+id/save"
+            app:layout_constraintVertical_bias="0.77" />
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
+        <include
+            android:id="@+id/walletView"
+            layout="@layout/wallet_view"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:fontFamily="@font/pfsans_pro_bold"
-            android:text="@string/btc_address"
-            android:textSize="@dimen/text_medium"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/about_tv" />
 
-
-        <TextView
-            android:id="@+id/walletAddress"
+        <include
+            android:id="@+id/walletAddressContainer"
+            layout="@layout/wallet_address"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:fontFamily="@font/pfsans_pro_semibold"
-            android:gravity="center"
-            app:layout_constraintEnd_toStartOf="@+id/clipboard"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            tools:text="azzdaxasfsfqwerasasdasfzzzz" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_bitcoin"
-            app:layout_constraintEnd_toEndOf="@+id/about_tv"
-            app:layout_constraintStart_toStartOf="@+id/about_tv"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <ImageView
-            android:id="@+id/clipboard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="32dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
-            android:focusable="true"
-            app:layout_constraintBottom_toBottomOf="@+id/walletAddress"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/walletAddress"
-            app:layout_constraintTop_toTopOf="@+id/walletAddress"
-            app:srcCompat="?attr/actionModeCopyDrawable"
-            app:tint="@color/colorPrimary" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/walletView" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -116,6 +83,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/rounded_button"
             android:fontFamily="@font/pfsans_pro_bold"
             android:text="@string/save"
@@ -129,7 +97,9 @@
             app:layout_constraintEnd_toEndOf="@+id/materialButton"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/materialButton"
-            app:layout_constraintTop_toBottomOf="@+id/clipboard" />
+            app:layout_constraintTop_toBottomOf="@+id/walletView"
+            app:layout_constraintVertical_bias="0.8"
+            app:layout_constraintVertical_chainStyle="packed" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -141,5 +111,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone" />
 </FrameLayout>

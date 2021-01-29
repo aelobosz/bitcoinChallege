@@ -1,10 +1,9 @@
 package com.alobosz.bitcoinbeetrack.domain.repository;
 
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Address;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Balance;
-import com.alobosz.bitcoinbeetrack.data.source.remote.model.Transaction;
+import com.alobosz.bitcoinbeetrack.domain.model.Address;
+import com.alobosz.bitcoinbeetrack.domain.model.Balance;
+import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 
-import io.reactivex.Single;
 import io.reactivex.Single;
 
 public interface IWalletRepository {
@@ -12,6 +11,8 @@ public interface IWalletRepository {
 
     Single<Balance> getBalance();
 
-    Single<Transaction> getTransactions();
+    Single<Transactions> getTransactions();
+
+    Single<Long> saveAddress(Address address);
 }
 
