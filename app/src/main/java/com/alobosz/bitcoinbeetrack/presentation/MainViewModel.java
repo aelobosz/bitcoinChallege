@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GetAddressUseCase;
-import com.alobosz.bitcoinbeetrack.domain.usecase.GetBalanceUseCase;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 
 import javax.inject.Inject;
@@ -15,14 +14,11 @@ import static com.alobosz.bitcoinbeetrack.util.FunUtil.fromConsumer;
 
 @SuppressWarnings("rawtypes")
 public class MainViewModel extends ViewModel {
-    private final GetBalanceUseCase getBalanceUseCase;
     private final GetAddressUseCase getAddressUseCase;
 
     @Inject
     public MainViewModel(
-            GetBalanceUseCase getBalanceUseCase,
             GetAddressUseCase getAddressUseCase) {
-        this.getBalanceUseCase = getBalanceUseCase;
         this.getAddressUseCase = getAddressUseCase;
     }
 
@@ -34,7 +30,7 @@ public class MainViewModel extends ViewModel {
 
     public void getAddress() {
         _getAddressLiveData.postValue(Result.loading());
-        getAddressUseCase.getAddress(null);
+        getAddressUseCase.setAddress(null);
         getAddressUseCase.execute(
                 fromConsumer((Address address) ->
                         _getAddressLiveData.postValue(Result.success(address))
@@ -49,7 +45,6 @@ public class MainViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         getAddressUseCase.dispose();
-        getBalanceUseCase.dispose();
     }
 
 

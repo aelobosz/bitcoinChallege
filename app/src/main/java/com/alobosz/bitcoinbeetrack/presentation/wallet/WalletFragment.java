@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,15 +12,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.databinding.FragmentWalletBinding;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
+import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
+import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.addresses.AddressViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 import com.alobosz.bitcoinbeetrack.util.QrGenerator;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
+
+import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +38,8 @@ public class WalletFragment extends BaseFragment {
 
     private FragmentWalletBinding binding;
     private WalletViewModel viewModel;
+    private MainViewModel mainViewModel;
+
 
     public WalletFragment() {
         // Required empty public constructor
@@ -43,6 +53,7 @@ public class WalletFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ApplicationBitcoinWallet.appComponent.inject(this);
+        mainViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MainViewModel.class);
         viewModel = new ViewModelProvider(this, viewModelFactory).get(WalletViewModel.class);
     }
 
@@ -57,12 +68,15 @@ public class WalletFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         observe();
-        viewModel.getAddress();
-
+        binding.walletAddressContainer.clipboard.setOnClickListener(v -> {
+            copyToClipboard(getContext(), binding.walletAddressContainer.walletAddress.getText().toString());
+        });
+        mainViewModel.getAddress();
     }
 
+    @SuppressWarnings({"RedundantCast", "rawtypes"})
     private void observe() {
-        viewModel.getAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>)result -> {
+        mainViewModel.getAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
             switch (result.status) {
                 case LOADING:
                     //binding.progress.getRoot().setVisibility(View.VISIBLE);
@@ -74,10 +88,32 @@ public class WalletFragment extends BaseFragment {
                         binding.walletView.imageQR.setImageBitmap(QrGenerator.createQR(
                                 address.getAddress(), 150, 150));
                         binding.walletAddressContainer.walletAddress.setText(address.getAddress());
+                        viewModel.getBalance(address.getAddress());
                     }
                     break;
                 default:
                     //binding.progress.getRoot().setVisibility(View.GONE);
+            }
+        });
+
+        viewModel.getBalanceLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
+            if (null == viewModel.getBalanceLiveData().getValue())
+                return;
+            switch (result.status) {
+                case ERROR:
+                    binding.cardBalance.smallProgress.setVisibility(View.GONE);
+                    //TODO:show error
+                    break;
+                case SUCCESS:
+                    binding.cardBalance.smallProgress.setVisibility(View.GONE);
+
+                    Balance balance = (Balance) result.data;
+                    if (null == balance)
+                        return;
+                    binding.cardBalance.balance.setText(balance.getBalance());
+                    binding.cardBalance.unconfinedBalance.setText(balance.getUnconfirmedBalance());
+                    binding.cardBalance.finalBalance.setText(balance.getFinalBalance());
+                    break;
             }
         });
     }

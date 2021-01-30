@@ -30,8 +30,9 @@ public class WalletRepositoryImpl implements WalletRepository {
     }
 
     @Override
-    public Single<Balance> getBalance() {
-        return null;
+    public Single<Balance> getBalance(String address) {
+
+        return remoteDataSource.getBalance(address);
     }
 
     @Override

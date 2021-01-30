@@ -16,6 +16,7 @@ import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.databinding.FragmentAddressCreatorBinding;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
+import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 import com.alobosz.bitcoinbeetrack.presentation.base.Status;
@@ -25,6 +26,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
 
 /**
@@ -36,6 +38,7 @@ public class AddressFragment extends BaseFragment {
 
     private FragmentAddressCreatorBinding binding;
     private AddressViewModel viewModel;
+    private MainViewModel mainViewModel;
 
     public AddressFragment() {
         // Required empty public constructor
@@ -49,6 +52,7 @@ public class AddressFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ApplicationBitcoinWallet.appComponent.inject(this);
+        mainViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MainViewModel.class);
         viewModel = new ViewModelProvider(this, viewModelFactory).get(AddressViewModel.class);
 
     }
@@ -71,9 +75,7 @@ public class AddressFragment extends BaseFragment {
             viewModel.generateAddress();
 
         binding.walletAddressContainer.clipboard.setOnClickListener(v -> {
-            Toast.makeText(getContext(), getString(R.string.copied_clipboard), Toast.LENGTH_SHORT).show();
             copyToClipboard(getContext(), binding.walletAddressContainer.walletAddress.getText().toString());
-
         });
         binding.materialButton.setOnClickListener(v -> viewModel.generateAddress());
 
@@ -95,6 +97,20 @@ public class AddressFragment extends BaseFragment {
                                 address.getAddress(), 150, 150));
                         binding.walletAddressContainer.walletAddress.setText(address.getAddress());
                     }
+
+                    break;
+                default:
+                    binding.progress.getRoot().setVisibility(View.GONE);
+            }
+        });
+
+        viewModel.saveAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
+            switch (result.status) {
+                case LOADING:
+                    binding.progress.getRoot().setVisibility(View.VISIBLE);
+                    break;
+                case SUCCESS:
+                    findNavController(this).navigate(R.id.action_addressFragment_to_successFragment);
                     break;
                 default:
                     binding.progress.getRoot().setVisibility(View.GONE);

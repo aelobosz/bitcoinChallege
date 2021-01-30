@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.ui.NavigationUI;
 
@@ -28,7 +29,7 @@ import static com.alobosz.bitcoinbeetrack.util.NavigationExtensionsKt.setupWithN
 public class MainActivity extends BaseActivity {
 
     @Inject
-    MainViewModel viewModel;
+    MainViewModel mainViewModel;
     private ActivityMainBinding binding;
     private LiveData<NavController> currentNavController = null;
 
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ApplicationBitcoinWallet.appComponent.inject(this);
+        mainViewModel = new ViewModelProvider(this, viewModelFactory).get(MainViewModel.class);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
@@ -44,11 +46,12 @@ public class MainActivity extends BaseActivity {
             setupBottomNavigationBar();
         }
         observe();
-        viewModel.getAddress();
+        mainViewModel.getAddress();
 
     }
+
     private void observe() {
-        viewModel.getAddressLiveData().observe(this, (Observer<Result>) result -> {
+        mainViewModel.getAddressLiveData().observe(this, (Observer<Result>) result -> {
             switch (result.status) {
                 case LOADING:
                     //binding.progress.getRoot().setVisibility(View.VISIBLE);

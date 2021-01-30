@@ -8,7 +8,7 @@ public class ApiConstants {
     public static final String ADDRESS = "address";
     private static final String API_PATH = API_VERSION + "/" + API_COIN + "/" + API_CHAIN + "/";
     public static final String PATH_GENERATE_ADDRESS = API_PATH + "addrs";
-    public static final String PATH_ADDRESS_BALANCE = API_PATH + "addrs/{" + ADDRESS + "}}/balance";
+    public static final String PATH_ADDRESS_BALANCE = API_PATH + "addrs/{" + ADDRESS + "}/balance";
     public static final String PATH_ADDRESS_TRANSACTIONS = API_PATH + "addrs/{" + ADDRESS + "}/full";
 
 }

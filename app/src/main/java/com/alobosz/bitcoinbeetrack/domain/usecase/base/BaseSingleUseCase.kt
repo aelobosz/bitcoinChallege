@@ -12,7 +12,7 @@ abstract class BaseSingleUseCase<T> : BaseUseCase() {
     @JvmOverloads
     fun execute(
             onSuccess: ((t: T) -> Unit),
-            onError: ((t: Throwable) -> Unit),
+            onError: ((t: Throwable) -> Unit) ={} ,
             onComplete: () -> Unit = {}
     ) {
         disposeLast()

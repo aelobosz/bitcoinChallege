@@ -23,7 +23,6 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
 
     @Override
     public Single<Address> generateAddress() {
-
         return apiBlockCypher.generateAddress().map(DataMapper::toAddress);
     }
 

@@ -9,6 +9,8 @@ import com.alobosz.bitcoinbeetrack.domain.usecase.GetAddressUseCase;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GetBalanceUseCase;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import static com.alobosz.bitcoinbeetrack.util.FunUtil.fromConsumer;
@@ -16,40 +18,40 @@ import static com.alobosz.bitcoinbeetrack.util.FunUtil.fromConsumer;
 @SuppressWarnings("rawtypes")
 public class WalletViewModel extends ViewModel {
     private final GetBalanceUseCase getBalanceUseCase;
-    private final GetAddressUseCase getAddressUseCase;
 
     @Inject
     public WalletViewModel(
             GetBalanceUseCase getBalanceUseCase,
             GetAddressUseCase getAddressUseCase) {
         this.getBalanceUseCase = getBalanceUseCase;
-        this.getAddressUseCase = getAddressUseCase;
     }
 
-    private final MutableLiveData<Result> _getAddressLiveData = new MutableLiveData<>();
+    private final MutableLiveData<Result> _getBalanceLiveData = new MutableLiveData<>();
 
-    public LiveData<Result> getAddressLiveData() {
-        return _getAddressLiveData;
-    }
-
-    public void getAddress() {
-        _getAddressLiveData.postValue(Result.loading());
-        getAddressUseCase.getAddress(null);
-        getAddressUseCase.execute(
-                fromConsumer((Address address) ->
-                        _getAddressLiveData.postValue(Result.success(address))
-                ),
-                fromConsumer((Throwable onError) ->
-                        _getAddressLiveData.postValue(Result.error(onError))
-                )
-        );
+    public LiveData<Result> getBalanceLiveData() {
+        return _getBalanceLiveData;
     }
 
     @Override
     protected void onCleared() {
         super.onCleared();
-        getAddressUseCase.dispose();
         getBalanceUseCase.dispose();
     }
 
+    public void getBalance(String Address) {
+        getBalanceUseCase.setAddress((Address));
+        getBalanceUseCase.execute(
+                fromConsumer((Object id) ->
+                        _getBalanceLiveData.postValue(Result.success(id))
+                ),
+                fromConsumer((Throwable onError) -> {
+                            if (Objects.requireNonNull(_getBalanceLiveData.getValue()).data == null)
+                                _getBalanceLiveData.postValue(Result.error(onError));
+                        }
+
+                )
+        );
+
+
+    }
 }

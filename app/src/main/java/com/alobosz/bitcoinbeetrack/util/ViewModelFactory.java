@@ -11,6 +11,10 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
 
+/**
+ * Factory provide instance for each ViewModel needed
+ */
+@SuppressWarnings({"unchecked"})
 @Singleton
 public class ViewModelFactory implements ViewModelProvider.Factory {
 
@@ -24,7 +28,7 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     }
 
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    public <T extends ViewModel> @NotNull T create(@NotNull Class<T> modelClass) {
         Provider<? extends ViewModel> creator = creators.get(modelClass);
         if (creator == null) {
             for (Map.Entry<Class<? extends ViewModel>, Provider<ViewModel>> entry : creators.entrySet()) {

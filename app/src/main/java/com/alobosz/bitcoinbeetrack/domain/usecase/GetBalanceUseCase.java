@@ -19,9 +19,13 @@ public class GetBalanceUseCase extends BaseSingleUseCase<Balance> {
 
     }
 
+    private String  address;
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @NotNull
     @Override
-    public Single<Balance> buildSingleUseCase() {
-        return repository.getBalance();
-    }
+    public Single<Balance> buildSingleUseCase() { return repository.getBalance(address); }
 }

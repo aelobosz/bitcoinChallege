@@ -8,6 +8,7 @@ import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GenerateAddressUseCase;
 import com.alobosz.bitcoinbeetrack.domain.usecase.SaveAddressUseCase;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
+import com.alobosz.bitcoinbeetrack.util.SingleLiveEvent;
 
 import javax.inject.Inject;
 
@@ -24,7 +25,7 @@ public class AddressViewModel extends ViewModel {
         return _generateAddressLiveData;
     }
 
-    private final MutableLiveData<Result> _saveAddressLiveData = new MutableLiveData<>();
+    private final SingleLiveEvent<Result> _saveAddressLiveData = new SingleLiveEvent<>();
 
     public LiveData<Result> saveAddressLiveData() {
         return _saveAddressLiveData;

@@ -9,7 +9,7 @@ import io.reactivex.Single;
 public interface WalletRepository {
     Single<Address> generateAddress();
 
-    Single<Balance> getBalance();
+    Single<Balance> getBalance(String address);
 
     Single<Transactions> getTransactions();
 

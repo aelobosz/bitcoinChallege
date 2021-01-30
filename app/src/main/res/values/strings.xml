@@ -6,7 +6,7 @@
     <string name="title_addresses">Addresses</string>
     <string name="title_orders">History</string>
     <string name="title_wallet">My Wallet</string>
-    <string name="generate">Create new</string>
+    <string name="generate">Generate new</string>
     <string name="create_address">Create Address</string>
     <string name="btc_address">BTC address</string>
     <string name="generating">Loading</string>
@@ -16,4 +16,6 @@
     <string name="balance">Balance</string>
     <string name="final_balance">Final balance</string>
     <string name="unconfirmed_balance">Unconfirmed balance</string>
+    <string name="wallet_successfully">your wallet has been saved successfully</string>
+    <string name="bitcoin_image_description">a bitcoin image as an item row from a list</string>
 </resources>

@@ -21,7 +21,7 @@ public class GetAddressUseCase extends BaseSingleUseCase<Address> {
 
     private String  address;
 
-    public void getAddress(String address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 

@@ -9,5 +9,13 @@
         android:id="@+id/addressFragment"
         android:name="com.alobosz.bitcoinbeetrack.presentation.addresses.AddressFragment"
         android:label="Address"
-        tools:layout="@layout/fragment_address_creator" />
+        tools:layout="@layout/fragment_address_creator" >
+        <action
+            android:id="@+id/action_addressFragment_to_successFragment"
+            app:destination="@id/successFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successFragment"
+        android:name="com.alobosz.bitcoinbeetrack.presentation.addresses.SuccessFragment"
+        android:label="SuccessFragment" />
 </navigation>
