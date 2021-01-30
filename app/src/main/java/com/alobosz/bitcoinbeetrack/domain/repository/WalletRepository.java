@@ -4,9 +4,11 @@ import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 
+import java.util.List;
+
 import io.reactivex.Single;
 
-public interface IWalletRepository {
+public interface WalletRepository {
     Single<Address> generateAddress();
 
     Single<Balance> getBalance();
@@ -14,5 +16,9 @@ public interface IWalletRepository {
     Single<Transactions> getTransactions();
 
     Single<Long> saveAddress(Address address);
+
+    Single<Address> getAddress(String address);
+
+    Single<Integer> deleteAddress();
 }
 

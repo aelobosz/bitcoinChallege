@@ -17,9 +17,12 @@ public interface AddressDao {
     Single<Long> insert(AddressEntity addressEntity);
 
     @Query("SELECT * FROM addressTable")
-    List<AddressEntity> loadAllAddresses();
+    Single<List<AddressEntity>> loadAllAddresses();
 
-    @Query("SELECT * FROM addressTable where walletAddress = :addressString")
-    AddressEntity getAddressByAddress(String addressString);
+    @Query("SELECT * FROM addressTable where wallet_address = :addressString")
+    Single<AddressEntity> getWalletByAddress(String addressString);
+
+    @Query("DELETE FROM addressTable")
+    Single<Integer> deleteAllTransaction();
 
 }

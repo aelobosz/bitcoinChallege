@@ -10,18 +10,24 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 
-public class GenerateAddressUseCase extends BaseSingleUseCase<Address> {
-    private final WalletRepository repository;
+public class GetAddressUseCase extends BaseSingleUseCase<Address> {
+    WalletRepository repository;
 
     @Inject
-    public GenerateAddressUseCase(WalletRepository walletRepository) {
-        this.repository = walletRepository;
+    GetAddressUseCase(WalletRepository repository) {
+        this.repository = repository;
+
     }
 
+    private String  address;
+
+    public void getAddress(String address) {
+        this.address = address;
+    }
 
     @NotNull
     @Override
     public Single<Address> buildSingleUseCase() {
-        return repository.generateAddress();
+        return repository.getAddress(address);
     }
 }

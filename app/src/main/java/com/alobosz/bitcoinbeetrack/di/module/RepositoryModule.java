@@ -1,11 +1,11 @@
 package com.alobosz.bitcoinbeetrack.di.module;
 
-import com.alobosz.bitcoinbeetrack.data.repository.WalletRepository;
-import com.alobosz.bitcoinbeetrack.data.source.local.ILocalDataSource;
+import com.alobosz.bitcoinbeetrack.data.repository.WalletRepositoryImpl;
 import com.alobosz.bitcoinbeetrack.data.source.local.LocalDataSource;
-import com.alobosz.bitcoinbeetrack.data.source.remote.IRemoteDataSource;
+import com.alobosz.bitcoinbeetrack.data.source.local.LocalDataSourceImpl;
 import com.alobosz.bitcoinbeetrack.data.source.remote.RemoteDataSource;
-import com.alobosz.bitcoinbeetrack.domain.repository.IWalletRepository;
+import com.alobosz.bitcoinbeetrack.data.source.remote.RemoteDataSourceImpl;
+import com.alobosz.bitcoinbeetrack.domain.repository.WalletRepository;
 
 import dagger.Binds;
 import dagger.Module;
@@ -14,11 +14,11 @@ import dagger.Module;
 abstract public class RepositoryModule {
 
     @Binds
-    abstract ILocalDataSource bindLocalDataSource(LocalDataSource localDataSource);
+    abstract LocalDataSource bindLocalDataSource(LocalDataSourceImpl localDataSourceImpl);
 
     @Binds
-    abstract IRemoteDataSource bindRemoteDataSource(RemoteDataSource remoteDataSource);
+    abstract RemoteDataSource bindRemoteDataSource(RemoteDataSourceImpl remoteDataSourceImpl);
 
     @Binds
-    abstract IWalletRepository bindRepository(WalletRepository walletRepository);
+    abstract WalletRepository bindRepository(WalletRepositoryImpl walletRepositoryImpl);
 }

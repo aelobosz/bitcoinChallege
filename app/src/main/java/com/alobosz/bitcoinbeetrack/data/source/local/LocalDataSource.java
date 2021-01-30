@@ -2,20 +2,14 @@ package com.alobosz.bitcoinbeetrack.data.source.local;
 
 import com.alobosz.bitcoinbeetrack.data.source.local.model.AddressEntity;
 
-import javax.inject.Inject;
+import java.util.List;
 
 import io.reactivex.Single;
 
-public class LocalDataSource implements ILocalDataSource {
-    private BitcoinWalletDatabase database;
+public interface LocalDataSource {
+    Single<Long> saveAddress(AddressEntity addressEntity);
 
-    @Inject
-    public LocalDataSource(BitcoinWalletDatabase database) {
-        this.database = database;
-    }
+    Single<AddressEntity> getAddress(String address);
 
-    @Override
-    public Single<Long> saveAddress(AddressEntity addressEntity) {
-        return database.addressDao().insert(addressEntity);
-    }
+    Single<Integer> deleteAddress();
 }
