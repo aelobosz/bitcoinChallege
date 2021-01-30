@@ -4,8 +4,6 @@ import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 
-import java.util.List;
-
 import io.reactivex.Single;
 
 public interface WalletRepository {

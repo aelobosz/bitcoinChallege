@@ -15,14 +15,15 @@ import static com.alobosz.bitcoinbeetrack.util.FunUtil.fromConsumer;
 
 @SuppressWarnings("rawtypes")
 public class WalletViewModel extends ViewModel {
-    private GetBalanceUseCase getBalanceUseCase;
-    private GetAddressUseCase getAddressUseCase;
+    private final GetBalanceUseCase getBalanceUseCase;
+    private final GetAddressUseCase getAddressUseCase;
 
     @Inject
     public WalletViewModel(
             GetBalanceUseCase getBalanceUseCase,
             GetAddressUseCase getAddressUseCase) {
         this.getBalanceUseCase = getBalanceUseCase;
+        this.getAddressUseCase = getAddressUseCase;
     }
 
     private final MutableLiveData<Result> _getAddressLiveData = new MutableLiveData<>();
@@ -31,9 +32,9 @@ public class WalletViewModel extends ViewModel {
         return _getAddressLiveData;
     }
 
-    public void saveAddress(String addressString) {
+    public void getAddress() {
         _getAddressLiveData.postValue(Result.loading());
-        getAddressUseCase.getAddress(addressString);
+        getAddressUseCase.getAddress(null);
         getAddressUseCase.execute(
                 fromConsumer((Address address) ->
                         _getAddressLiveData.postValue(Result.success(address))

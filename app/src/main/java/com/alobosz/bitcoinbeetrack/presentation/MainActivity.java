@@ -11,7 +11,10 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.databinding.ActivityMainBinding;
+import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseActivity;
+import com.alobosz.bitcoinbeetrack.presentation.base.Result;
+import com.alobosz.bitcoinbeetrack.util.QrGenerator;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -25,7 +28,7 @@ import static com.alobosz.bitcoinbeetrack.util.NavigationExtensionsKt.setupWithN
 public class MainActivity extends BaseActivity {
 
     @Inject
-    MainViewModel mainViewModel;
+    MainViewModel viewModel;
     private ActivityMainBinding binding;
     private LiveData<NavController> currentNavController = null;
 
@@ -33,13 +36,34 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ApplicationBitcoinWallet.appComponent.inject(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
         if (savedInstanceState == null) {
             setupBottomNavigationBar();
         }
+        observe();
+        viewModel.getAddress();
 
+    }
+    private void observe() {
+        viewModel.getAddressLiveData().observe(this, (Observer<Result>) result -> {
+            switch (result.status) {
+                case LOADING:
+                    //binding.progress.getRoot().setVisibility(View.VISIBLE);
+                    break;
+                case SUCCESS:
+                    Address address = (Address) result.data;
+                    //binding.progress.getRoot().setVisibility(View.GONE);
+                    if (address != null) {
+                        //setMenu to balance
+                    }
+                    break;
+                default:
+                    //binding.progress.getRoot().setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

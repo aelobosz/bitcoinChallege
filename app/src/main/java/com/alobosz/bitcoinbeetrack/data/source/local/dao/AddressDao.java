@@ -17,7 +17,7 @@ public interface AddressDao {
     Single<Long> insert(AddressEntity addressEntity);
 
     @Query("SELECT * FROM addressTable")
-    Single<List<AddressEntity>> loadAllAddresses();
+    Single<List<AddressEntity>> getAddresses();
 
     @Query("SELECT * FROM addressTable where wallet_address = :addressString")
     Single<AddressEntity> getWalletByAddress(String addressString);

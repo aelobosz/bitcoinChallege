@@ -23,6 +23,8 @@ import com.alobosz.bitcoinbeetrack.util.QrGenerator;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
 
 /**
@@ -65,7 +67,7 @@ public class AddressFragment extends BaseFragment {
         observe();
 
         if (viewModel.generateAddressLiveData().getValue() == null
-                || viewModel.generateAddressLiveData().getValue().status == Status.ERROR)
+                || Objects.requireNonNull(viewModel.generateAddressLiveData().getValue()).status == Status.ERROR)
             viewModel.generateAddress();
 
         binding.walletAddressContainer.clipboard.setOnClickListener(v -> {

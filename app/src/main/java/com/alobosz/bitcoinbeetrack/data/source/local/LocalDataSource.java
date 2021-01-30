@@ -11,5 +11,7 @@ public interface LocalDataSource {
 
     Single<AddressEntity> getAddress(String address);
 
+    Single<List<AddressEntity>> getAddresses();
+
     Single<Integer> deleteAddress();
 }

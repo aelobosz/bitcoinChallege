@@ -41,12 +41,24 @@ public class WalletRepositoryImpl implements WalletRepository {
 
     @Override
     public Single<Long> saveAddress(Address address) {
-        return localDataSource.saveAddress(DataMapper.toEntity(address));
+        return Single
+                .concat(localDataSource.deleteAddress(),
+                        localDataSource.saveAddress(DataMapper.toEntity(address))
+                )
+                .filter(obj -> false)
+                .first(1)
+                .map(Number::longValue);
     }
 
     @Override
     public Single<Address> getAddress(String address) {
-        return localDataSource.getAddress(address).map(DataMapper::entityToAddress);
+        return localDataSource.getAddresses().map(list -> {
+                    if (!list.isEmpty())
+                        return DataMapper.entityToAddress(list.get(0));
+                    else
+                        return null;
+                }
+        );
     }
 
     @Override

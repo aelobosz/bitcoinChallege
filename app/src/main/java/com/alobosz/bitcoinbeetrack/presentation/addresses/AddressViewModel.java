@@ -51,12 +51,12 @@ public class AddressViewModel extends ViewModel {
     }
 
     public void saveAddress() {
-        if (_generateAddressLiveData.getValue().data == null)
+        if (_generateAddressLiveData.getValue() == null)
             return;
         _saveAddressLiveData.postValue(Result.loading());
         saveAddressUseCase.saveAddress((Address) _generateAddressLiveData.getValue().data);
         saveAddressUseCase.execute(
-                fromConsumer((Long id) ->
+                fromConsumer((Object id) ->
                         _saveAddressLiveData.postValue(Result.success(id))
                 ),
                 fromConsumer((Throwable onError) ->

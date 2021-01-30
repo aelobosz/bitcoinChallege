@@ -8,12 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.alobosz.bitcoinbeetrack.databinding.FragmentWalletBinding;
+import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 import com.alobosz.bitcoinbeetrack.presentation.addresses.AddressViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
+import com.alobosz.bitcoinbeetrack.presentation.base.Result;
+import com.alobosz.bitcoinbeetrack.util.QrGenerator;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -52,7 +56,30 @@ public class WalletFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        observe();
+        viewModel.getAddress();
 
+    }
+
+    private void observe() {
+        viewModel.getAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>)result -> {
+            switch (result.status) {
+                case LOADING:
+                    //binding.progress.getRoot().setVisibility(View.VISIBLE);
+                    break;
+                case SUCCESS:
+                    Address address = (Address) result.data;
+                    //binding.progress.getRoot().setVisibility(View.GONE);
+                    if (address != null) {
+                        binding.walletView.imageQR.setImageBitmap(QrGenerator.createQR(
+                                address.getAddress(), 150, 150));
+                        binding.walletAddressContainer.walletAddress.setText(address.getAddress());
+                    }
+                    break;
+                default:
+                    //binding.progress.getRoot().setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
