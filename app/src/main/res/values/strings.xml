@@ -18,4 +18,6 @@
     <string name="unconfirmed_balance">Unconfirmed balance</string>
     <string name="wallet_successfully">your wallet has been saved successfully</string>
     <string name="bitcoin_image_description">a bitcoin image as an item row from a list</string>
+    <string name="empty_data">you don\'t have any\ntransactions yet</string>
+    <string name="error">A problem has occurred.\nPlease try again</string>
 </resources>

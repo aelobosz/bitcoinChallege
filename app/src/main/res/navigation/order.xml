@@ -9,5 +9,5 @@
         android:id="@+id/transactionFragment"
         android:name="com.alobosz.bitcoinbeetrack.presentation.transactions.TransactionFragment"
         android:label="Order History"
-        tools:layout="@layout/fragment_order_history" />
+        tools:layout="@layout/fragment_transaction" />
 </navigation>

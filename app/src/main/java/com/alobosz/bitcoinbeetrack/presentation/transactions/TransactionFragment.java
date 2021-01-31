@@ -10,16 +10,22 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.alobosz.bitcoinbeetrack.databinding.FragmentOrderHistoryBinding;
+import com.alobosz.bitcoinbeetrack.R;
+import com.alobosz.bitcoinbeetrack.databinding.FragmentTransactionBinding;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
+import com.alobosz.bitcoinbeetrack.presentation.base.Status;
+import com.alobosz.bitcoinbeetrack.presentation.transactions.adapter.AdapterTransaction;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,9 +34,11 @@ import org.jetbrains.annotations.NotNull;
  */
 @SuppressWarnings("rawtypes")
 public class TransactionFragment extends BaseFragment {
-    private FragmentOrderHistoryBinding binding;
+    AdapterTransaction adapter;
+    private FragmentTransactionBinding binding;
     private TransactionViewModel viewModel;
     private MainViewModel mainViewModel;
+
 
     public TransactionFragment() {
         // Required empty public constructor
@@ -44,6 +52,7 @@ public class TransactionFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ApplicationBitcoinWallet.appComponent.inject(this);
+        adapter = new AdapterTransaction();
         viewModel = new ViewModelProvider(this, viewModelFactory).get(TransactionViewModel.class);
         mainViewModel = new ViewModelProvider(requireActivity(), viewModelFactory).get(MainViewModel.class);
     }
@@ -51,14 +60,19 @@ public class TransactionFragment extends BaseFragment {
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentOrderHistoryBinding.inflate(inflater, container, false);
+        binding = FragmentTransactionBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.transactionList.setAdapter(adapter);
+        binding.swiperefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
         mainViewModel.getAddress();
+        binding.swiperefresh.setOnRefreshListener(
+                () -> mainViewModel.getAddress()
+        );
         observe();
     }
 
@@ -66,17 +80,11 @@ public class TransactionFragment extends BaseFragment {
     private void observe() {
 
         mainViewModel.getAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
-            switch (result.status) {
-                case ERROR:
-                    //TODO show error
-                    break;
-                case SUCCESS:
-                    Transactions transactions = (Transactions) result.data;
-                    //TODO: setAdapter
-                    break;
-                case EMPTY:
-                    //TODO: show message empty transactions
-                    break;
+            if (result.status == Status.SUCCESS) {
+                Address address = (Address) result.data;
+                if (address != null) {
+                    viewModel.getTransactions(address.getAddress());
+                }
             }
         });
 
@@ -85,13 +93,31 @@ public class TransactionFragment extends BaseFragment {
                 return;
             switch (result.status) {
                 case ERROR:
+                    hideSwipeRefresh();
+                    binding.progress.getRoot().setVisibility(View.GONE);
+                    binding.empty.getRoot().setVisibility(View.GONE);
                     //TODO:show error
                     break;
                 case SUCCESS:
-
+                    hideSwipeRefresh();
+                    binding.progress.getRoot().setVisibility(View.GONE);
+                    binding.empty.getRoot().setVisibility(View.GONE);
+                    Transactions transactions = (Transactions) result.data;
+                    adapter.refreshAdapter(Objects.requireNonNull(transactions).getTransactions());
+                    break;
+                case EMPTY:
+                    hideSwipeRefresh();
+                    binding.progress.getRoot().setVisibility(View.GONE);
+                    binding.empty.getRoot().setVisibility(View.VISIBLE);
                     break;
             }
         });
+    }
+
+    private void hideSwipeRefresh(){
+        if (binding.swiperefresh.isRefreshing()) {
+            binding.swiperefresh.setRefreshing(false);
+        }
     }
 
     @Override

@@ -37,21 +37,27 @@
         app:layout_constraintTop_toBottomOf="@+id/walletTitle" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/leaderboard_list"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/walletTitle"
-        tools:context="com.example.android.navigationadvancedsample.listscreen.Leaderboard"
-        tools:listitem="@layout/row_transaction" />
+        app:layout_constraintTop_toBottomOf="@+id/walletTitle">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/transactionList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
+            tools:listitem="@layout/row_transaction" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <include
         android:id="@+id/progress"
@@ -61,6 +67,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/leaderboard_list" />
+        app:layout_constraintTop_toTopOf="@+id/swiperefresh"
+        tools:visibility="gone" />
+
+    <include
+        android:id="@+id/empty"
+        layout="@layout/empty"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/swiperefresh"
+        app:layout_constraintEnd_toEndOf="@+id/swiperefresh"
+        app:layout_constraintStart_toStartOf="@+id/swiperefresh"
+        app:layout_constraintTop_toTopOf="@+id/swiperefresh" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
