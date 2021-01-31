@@ -26,7 +26,6 @@ public class RemoteDataSourceImpl implements RemoteDataSource {
         return apiBlockCypher.generateAddress().map(DataMapper::toAddress);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public Single<Transactions> getTransactions(String address) {
         return apiBlockCypher.getAddressTransactions(address).map(DataMapper::toTransactions);

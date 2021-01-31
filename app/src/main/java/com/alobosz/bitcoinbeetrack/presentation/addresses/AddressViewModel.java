@@ -40,13 +40,13 @@ public class AddressViewModel extends ViewModel {
     }
 
     public void generateAddress() {
-        _generateAddressLiveData.postValue(Result.loading());
+        _generateAddressLiveData.postValue(Result.onLoading());
         generateAddressUseCase.execute(
                 fromConsumer((Address address) ->
-                        _generateAddressLiveData.postValue(Result.success(address))
+                        _generateAddressLiveData.postValue(Result.onSuccess(address))
                 ),
                 fromConsumer((Throwable onError) ->
-                        _generateAddressLiveData.postValue(Result.error(onError))
+                        _generateAddressLiveData.postValue(Result.onError(onError))
                 )
         );
     }
@@ -54,14 +54,14 @@ public class AddressViewModel extends ViewModel {
     public void saveAddress() {
         if (_generateAddressLiveData.getValue() == null)
             return;
-        _saveAddressLiveData.postValue(Result.loading());
+        _saveAddressLiveData.postValue(Result.onLoading());
         saveAddressUseCase.saveAddress((Address) _generateAddressLiveData.getValue().data);
         saveAddressUseCase.execute(
                 fromConsumer((Object id) ->
-                        _saveAddressLiveData.postValue(Result.success(id))
+                        _saveAddressLiveData.postValue(Result.onSuccess(id))
                 ),
                 fromConsumer((Throwable onError) ->
-                        _generateAddressLiveData.postValue(Result.error(onError))
+                        _generateAddressLiveData.postValue(Result.onError(onError))
                 )
         );
     }

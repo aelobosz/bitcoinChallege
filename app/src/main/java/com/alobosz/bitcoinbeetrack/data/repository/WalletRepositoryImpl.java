@@ -36,8 +36,9 @@ public class WalletRepositoryImpl implements WalletRepository {
     }
 
     @Override
-    public Single<Transactions> getTransactions() {
-        return null;
+    public Single<Transactions> getTransactions(String address) {
+
+        return remoteDataSource.getTransactions(address);
     }
 
     @Override

@@ -29,14 +29,14 @@ public class MainViewModel extends ViewModel {
     }
 
     public void getAddress() {
-        _getAddressLiveData.postValue(Result.loading());
+        _getAddressLiveData.postValue(Result.onLoading());
         getAddressUseCase.setAddress(null);
         getAddressUseCase.execute(
                 fromConsumer((Address address) ->
-                        _getAddressLiveData.postValue(Result.success(address))
+                        _getAddressLiveData.postValue(Result.onSuccess(address))
                 ),
                 fromConsumer((Throwable onError) ->
-                        _getAddressLiveData.postValue(Result.error(onError))
+                        _getAddressLiveData.postValue(Result.onError(onError))
                 )
         );
     }

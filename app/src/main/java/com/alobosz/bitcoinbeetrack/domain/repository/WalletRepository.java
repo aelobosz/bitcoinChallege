@@ -11,7 +11,7 @@ public interface WalletRepository {
 
     Single<Balance> getBalance(String address);
 
-    Single<Transactions> getTransactions();
+    Single<Transactions> getTransactions(String address);
 
     Single<Long> saveAddress(Address address);
 

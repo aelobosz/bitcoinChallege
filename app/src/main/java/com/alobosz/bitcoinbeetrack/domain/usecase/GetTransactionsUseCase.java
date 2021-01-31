@@ -18,9 +18,15 @@ public class GetTransactionsUseCase extends BaseSingleUseCase<Transactions> {
         this.repository = repository;
     }
 
+    private String  address;
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @NotNull
     @Override
     public Single<Transactions> buildSingleUseCase() {
-        return repository.getTransactions();
+        return repository.getTransactions(address);
     }
 }

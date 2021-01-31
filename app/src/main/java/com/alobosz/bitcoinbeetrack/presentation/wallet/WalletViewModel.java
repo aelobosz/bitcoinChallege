@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GetAddressUseCase;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GetBalanceUseCase;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
@@ -42,11 +41,11 @@ public class WalletViewModel extends ViewModel {
         getBalanceUseCase.setAddress((Address));
         getBalanceUseCase.execute(
                 fromConsumer((Object id) ->
-                        _getBalanceLiveData.postValue(Result.success(id))
+                        _getBalanceLiveData.postValue(Result.onSuccess(id))
                 ),
                 fromConsumer((Throwable onError) -> {
                             if (Objects.requireNonNull(_getBalanceLiveData.getValue()).data == null)
-                                _getBalanceLiveData.postValue(Result.error(onError));
+                                _getBalanceLiveData.postValue(Result.onError(onError));
                         }
 
                 )
