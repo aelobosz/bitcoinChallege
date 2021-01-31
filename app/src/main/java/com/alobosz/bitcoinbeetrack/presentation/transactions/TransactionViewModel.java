@@ -41,7 +41,7 @@ public class TransactionViewModel extends ViewModel {
                         }
                 ),
                 fromConsumer((Throwable onError) -> {
-                            if (Objects.requireNonNull(_getTransactionLiveData.getValue()).data == null)
+                            if (null == _getTransactionLiveData.getValue() || _getTransactionLiveData.getValue().data == null)
                                 _getTransactionLiveData.postValue(Result.onError(onError));
                         }
                 )

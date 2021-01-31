@@ -12,28 +12,36 @@ public class TransactionDTO {
     private String address;
     @SerializedName("total_received")
     @Expose
-    private Integer totalReceived;
+    private Long
+            totalReceived;
     @SerializedName("total_sent")
     @Expose
-    private Integer totalSent;
+    private Long
+            totalSent;
     @SerializedName("balance")
     @Expose
-    private Integer balance;
+    private Long
+            balance;
     @SerializedName("unconfirmed_balance")
     @Expose
-    private Integer unconfirmedBalance;
+    private Long
+            unconfirmedBalance;
     @SerializedName("final_balance")
     @Expose
-    private Integer finalBalance;
+    private Long
+            finalBalance;
     @SerializedName("n_tx")
     @Expose
-    private Integer nTx;
+    private Long
+            nTx;
     @SerializedName("unconfirmed_n_tx")
     @Expose
-    private Integer unconfirmedNTx;
+    private Long
+            unconfirmedNTx;
     @SerializedName("final_n_tx")
     @Expose
-    private Integer finalNTx;
+    private Long
+            finalNTx;
     @SerializedName("txs")
     @Expose
     private List<Tx> txs = null;
@@ -49,16 +57,19 @@ public class TransactionDTO {
         private String prevHash;
         @SerializedName("output_index")
         @Expose
-        private Integer outputIndex;
+        private Long
+                outputIndex;
         @SerializedName("script")
         @Expose
         private String script;
         @SerializedName("output_value")
         @Expose
-        private Integer outputValue;
+        private Long
+                outputValue;
         @SerializedName("sequence")
         @Expose
-        private Integer sequence;
+        private Long
+                sequence;
         @SerializedName("addresses")
         @Expose
         private List<String> addresses = null;
@@ -72,7 +83,8 @@ public class TransactionDTO {
 
         @SerializedName("value")
         @Expose
-        private Integer value;
+        private Long
+                value;
         @SerializedName("script")
         @Expose
         private String script;
@@ -94,7 +106,8 @@ public class TransactionDTO {
         private String blockHash;
         @SerializedName("block_height")
         @Expose
-        private Integer blockHeight;
+        private Long
+                blockHeight;
         @SerializedName("hash")
         @Expose
         private String hash;
@@ -103,13 +116,16 @@ public class TransactionDTO {
         private List<String> addresses = null;
         @SerializedName("total")
         @Expose
-        private Integer total;
+        private Long
+                total;
         @SerializedName("fees")
         @Expose
-        private Integer fees;
+        private Long
+                fees;
         @SerializedName("size")
         @Expose
-        private Integer size;
+        private Long
+                size;
         @SerializedName("preference")
         @Expose
         private String preference;
@@ -124,25 +140,31 @@ public class TransactionDTO {
         private String received;
         @SerializedName("ver")
         @Expose
-        private Integer ver;
+        private Long
+                ver;
         @SerializedName("lock_time")
         @Expose
-        private Integer lockTime;
+        private Long
+                lockTime;
         @SerializedName("double_spend")
         @Expose
         private Boolean doubleSpend;
         @SerializedName("vin_sz")
         @Expose
-        private Integer vinSz;
+        private Long
+                vinSz;
         @SerializedName("vout_sz")
         @Expose
-        private Integer voutSz;
+        private Long
+                voutSz;
         @SerializedName("confirmations")
         @Expose
-        private Integer confirmations;
+        private Long
+                confirmations;
         @SerializedName("confidence")
         @Expose
-        private Integer confidence;
+        private Long
+                confidence;
         @SerializedName("inputs")
         @Expose
         private List<Input> inputs = null;
@@ -154,7 +176,8 @@ public class TransactionDTO {
             return confirmed;
         }
 
-        public Integer getTotal() {
+        public Long
+        getTotal() {
             return total;
         }
 

@@ -121,4 +121,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone" />
+
+    <include
+        android:id="@+id/error"
+        layout="@layout/error"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
 </FrameLayout>

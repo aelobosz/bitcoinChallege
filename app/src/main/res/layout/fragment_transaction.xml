@@ -81,4 +81,12 @@
         app:layout_constraintStart_toStartOf="@+id/swiperefresh"
         app:layout_constraintTop_toTopOf="@+id/swiperefresh" />
 
+    <include
+        android:id="@+id/error"
+        layout="@layout/error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

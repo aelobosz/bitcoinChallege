@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.databinding.FragmentTransactionBinding;
@@ -73,6 +72,10 @@ public class TransactionFragment extends BaseFragment {
         binding.swiperefresh.setOnRefreshListener(
                 () -> mainViewModel.getAddress()
         );
+        binding.error.retry.setOnClickListener(v -> {
+            binding.swiperefresh.setRefreshing(true);
+            mainViewModel.getAddress();
+        });
         observe();
     }
 
@@ -92,29 +95,33 @@ public class TransactionFragment extends BaseFragment {
             if (null == viewModel.getTransactionLiveData().getValue())
                 return;
             switch (result.status) {
-                case ERROR:
-                    hideSwipeRefresh();
-                    binding.progress.getRoot().setVisibility(View.GONE);
-                    binding.empty.getRoot().setVisibility(View.GONE);
-                    //TODO:show error
-                    break;
                 case SUCCESS:
-                    hideSwipeRefresh();
-                    binding.progress.getRoot().setVisibility(View.GONE);
-                    binding.empty.getRoot().setVisibility(View.GONE);
+                    showVisibilityByState(false, false);
                     Transactions transactions = (Transactions) result.data;
                     adapter.refreshAdapter(Objects.requireNonNull(transactions).getTransactions());
                     break;
                 case EMPTY:
                     hideSwipeRefresh();
-                    binding.progress.getRoot().setVisibility(View.GONE);
-                    binding.empty.getRoot().setVisibility(View.VISIBLE);
+                    showVisibilityByState(false, true);
+                    break;
+                case ERROR:
+                    hideSwipeRefresh();
+                    showVisibilityByState(true, false);
                     break;
             }
         });
     }
 
-    private void hideSwipeRefresh(){
+    private void showVisibilityByState(
+            boolean error,
+            boolean empty) {
+        hideSwipeRefresh();
+        binding.progress.getRoot().setVisibility(View.GONE);
+        binding.empty.getRoot().setVisibility(empty ? View.VISIBLE : View.GONE);
+        binding.error.getRoot().setVisibility(error ? View.VISIBLE : View.GONE);
+    }
+
+    private void hideSwipeRefresh() {
         if (binding.swiperefresh.isRefreshing()) {
             binding.swiperefresh.setRefreshing(false);
         }

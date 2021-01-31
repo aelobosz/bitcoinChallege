@@ -34,6 +34,7 @@ import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
  * Use the {@link AddressFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@SuppressWarnings("RedundantCast")
 public class AddressFragment extends BaseFragment {
 
     private FragmentAddressCreatorBinding binding;
@@ -74,12 +75,15 @@ public class AddressFragment extends BaseFragment {
                 || Objects.requireNonNull(viewModel.generateAddressLiveData().getValue()).status == Status.ERROR)
             viewModel.generateAddress();
 
-        binding.walletAddressContainer.clipboard.setOnClickListener(v -> {
-            copyToClipboard(getContext(), binding.walletAddressContainer.walletAddress.getText().toString());
-        });
+        binding.walletAddressContainer.clipboard.setOnClickListener(v ->
+                copyToClipboard(
+                        getContext(),
+                        binding.walletAddressContainer.walletAddress.getText().toString()
+                )
+        );
         binding.materialButton.setOnClickListener(v -> viewModel.generateAddress());
-
         binding.save.setOnClickListener(v -> viewModel.saveAddress());
+        binding.error.retry.setOnClickListener(v -> viewModel.generateAddress());
     }
 
     @SuppressWarnings("rawtypes")
@@ -88,19 +92,22 @@ public class AddressFragment extends BaseFragment {
             switch (result.status) {
                 case LOADING:
                     binding.progress.getRoot().setVisibility(View.VISIBLE);
+                    binding.error.getRoot().setVisibility(View.GONE);
                     break;
                 case SUCCESS:
                     Address address = (Address) result.data;
                     binding.progress.getRoot().setVisibility(View.GONE);
+                    binding.error.getRoot().setVisibility(View.GONE);
                     if (address != null) {
                         binding.walletView.imageQR.setImageBitmap(QrGenerator.createQR(
                                 address.getAddress(), 150, 150));
                         binding.walletAddressContainer.walletAddress.setText(address.getAddress());
                     }
-
                     break;
                 default:
+                    binding.error.getRoot().setVisibility(View.VISIBLE);
                     binding.progress.getRoot().setVisibility(View.GONE);
+                    break;
             }
         });
 

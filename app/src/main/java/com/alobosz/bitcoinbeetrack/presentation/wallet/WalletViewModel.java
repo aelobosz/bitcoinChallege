@@ -44,10 +44,9 @@ public class WalletViewModel extends ViewModel {
                         _getBalanceLiveData.postValue(Result.onSuccess(id))
                 ),
                 fromConsumer((Throwable onError) -> {
-                            if (Objects.requireNonNull(_getBalanceLiveData.getValue()).data == null)
+                            if (_getBalanceLiveData.getValue() == null || _getBalanceLiveData.getValue().data == null)
                                 _getBalanceLiveData.postValue(Result.onError(onError));
                         }
-
                 )
         );
 

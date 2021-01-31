@@ -55,10 +55,9 @@ public class DataMapper {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static Transactions.Transaction toTransaction(TransactionDTO.Tx tx) {
         return new Transactions.Transaction(
-                tx.getConfirmed(), tx.getTotal() == null ? "0" : Integer.toString(tx.getTotal()));
+                tx.getConfirmed(), tx.getTotal() == null ? "0" : Long.toString(tx.getTotal()));
 
     }
 
