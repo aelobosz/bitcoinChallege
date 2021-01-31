@@ -21,7 +21,7 @@
     <string name="error">A problem has occurred.\nPlease try again</string>
     <string name="retry">Retry</string>
     <string name="go_to_wallet">Go to my wallet</string>
-    <string name="no_address_message">No wallet found. If you haven\'t created one yet, you can create it in the create address section</string>
+    <string name="no_address_message">No wallet found. If you haven\'t created one yet, you can create it on this section</string>
     <string name="ok">OK</string>
     <string name="no_address">No address found</string>
 </resources>

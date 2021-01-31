@@ -90,8 +90,6 @@ public class TransactionFragment extends BaseFragment {
                     viewModel.getTransactions(address.getAddress());
                 }
             }
-            if(result.status == Status.EMPTY)
-                mainViewModel.selectItem(R.id.address);
         });
 
         viewModel.getTransactionLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {

@@ -93,8 +93,6 @@ public class WalletFragment extends BaseFragment {
                         viewModel.getBalance(address.getAddress());
                     }
                     break;
-                case EMPTY:
-                    mainViewModel.selectItem(R.id.address);
             }
         });
 

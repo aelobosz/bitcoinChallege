@@ -20,11 +20,15 @@ import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 import com.alobosz.bitcoinbeetrack.presentation.base.Status;
+import com.alobosz.bitcoinbeetrack.util.PreferencesConstants;
 import com.alobosz.bitcoinbeetrack.util.QrGenerator;
+import com.alobosz.bitcoinbeetrack.util.WalletPreferences;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
+
+import javax.inject.Inject;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
@@ -36,6 +40,8 @@ import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
  */
 @SuppressWarnings("RedundantCast")
 public class AddressFragment extends BaseFragment {
+    @Inject
+    WalletPreferences walletPreferences;
 
     private FragmentAddressCreatorBinding binding;
     private AddressViewModel viewModel;
@@ -72,7 +78,7 @@ public class AddressFragment extends BaseFragment {
         observe();
 
         if (viewModel.generateAddressLiveData().getValue() == null
-                || Objects.requireNonNull(viewModel.generateAddressLiveData().getValue()).status == Status.ERROR)
+                || viewModel.generateAddressLiveData().getValue().status == Status.ERROR)
             viewModel.generateAddress();
 
         binding.walletAddressContainer.clipboard.setOnClickListener(v ->
@@ -116,14 +122,20 @@ public class AddressFragment extends BaseFragment {
                 case LOADING:
                     binding.progress.getRoot().setVisibility(View.VISIBLE);
                     break;
-                case SUCCESS:
+                case SUCCESS: {
+                    saveHasWallet();
                     findNavController(this).navigate(R.id.action_addressFragment_to_successFragment);
-                    break;
+                }
+                break;
                 default:
                     binding.progress.getRoot().setVisibility(View.GONE);
             }
         });
 
+    }
+
+    private void saveHasWallet() {
+        walletPreferences.saveData(PreferencesConstants.HAS_ADDRESS_KEY, true);
     }
 
     @Override

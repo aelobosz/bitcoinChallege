@@ -8,11 +8,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.PreferenceManager;
 
 import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.databinding.ActivityMainBinding;
@@ -21,9 +23,12 @@ import com.alobosz.bitcoinbeetrack.presentation.base.BaseActivity;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 import com.alobosz.bitcoinbeetrack.presentation.base.Status;
 import com.alobosz.bitcoinbeetrack.util.NavigationExtensionsKt;
+import com.alobosz.bitcoinbeetrack.util.PreferencesConstants;
 import com.alobosz.bitcoinbeetrack.util.QrGenerator;
+import com.alobosz.bitcoinbeetrack.util.WalletPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +41,8 @@ import static com.alobosz.bitcoinbeetrack.util.NavigationExtensionsKt.setupWithN
 
 public class MainActivity extends BaseActivity {
 
+    @Inject
+    WalletPreferences walletPreferences;
     @Inject
     MainViewModel mainViewModel;
     ActivityMainBinding binding;
@@ -50,9 +57,12 @@ public class MainActivity extends BaseActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
             setupBottomNavigationBar();
-        }
+
+        if (hasAddress())
+            selectBottomNavItem(R.id.wallet);
+
         observe();
         mainViewModel.getAddress();
 
@@ -65,14 +75,18 @@ public class MainActivity extends BaseActivity {
                 this, this::selectBottomNavItem);
         mainViewModel.getAddressLiveData().observe(
                 this, (Observer<Result>) result -> {
-                    //if (result.status == Status.SUCCESS)
-                    //binding.bottomNav.setSelectedItemId(R.id.wallet);
+                    if (result.status == Status.EMPTY &&
+                            binding.bottomNav.getSelectedItemId() != R.id.address)
+                        selectBottomNavItem(R.id.address);
                 });
     }
 
     private void selectBottomNavItem(int itemId) {
         if (R.id.address == itemId)
-            showDialog();
+            NavigationExtensionsKt.showIndefiniteSnackBar(
+                    this,
+                    R.string.no_address_message,
+                    binding.getRoot()).show();
         binding.bottomNav.setSelectedItemId(itemId);
 
     }
@@ -120,18 +134,8 @@ public class MainActivity extends BaseActivity {
         else return false;
     }
 
-    private void showDialog() {
-        NavigationExtensionsKt.showAlertDialog(
-                this, fromConsumer((AlertDialog.Builder builder) -> {
-                            builder
-                                    .setMessage(getString(R.string.no_address_message))
-                                    .setTitle(R.string.no_address)
-                                    .setPositiveButton(R.string.ok, (dialog, which) -> {
-                                    })
-                                    .create()
-                                    .show();
-                        }
-                ));
+    private boolean hasAddress() {
+        return walletPreferences.getData(PreferencesConstants.HAS_ADDRESS_KEY);
     }
 
 }

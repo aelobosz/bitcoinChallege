@@ -239,12 +239,6 @@ private fun FragmentManager.isOnBackStack(backStackName: String): Boolean {
 private fun getFragmentTag(index: Int) = "bottomNavigation#$index"
 
 
-inline fun Context.showAlertDialog(dialogBuilder: AlertDialog.Builder.() -> Unit) =
-        AlertDialog.Builder(this)
-                .apply(dialogBuilder)
-                .create()
-                .show()
-
 fun Context.showIndefiniteSnackBar(message: Int, view: View): Snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
         .apply {
             setAction(getString(R.string.ok)) { this.dismiss() }

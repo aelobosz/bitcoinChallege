@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.alobosz.bitcoinbeetrack.di.module.ApiModule;
 import com.alobosz.bitcoinbeetrack.di.module.DataBaseModule;
-import com.alobosz.bitcoinbeetrack.di.module.GlideModule;
+import com.alobosz.bitcoinbeetrack.di.module.AppModule;
 import com.alobosz.bitcoinbeetrack.di.module.RepositoryModule;
 import com.alobosz.bitcoinbeetrack.di.module.ViewModelModule;
 import com.alobosz.bitcoinbeetrack.di.util.BaseUrl;
@@ -21,7 +21,7 @@ import dagger.Component;
         DataBaseModule.class,
         ViewModelModule.class,
         RepositoryModule.class,
-        GlideModule.class
+        AppModule.class
 })
 public interface AppComponent extends InjectViews {
     @Component.Builder
