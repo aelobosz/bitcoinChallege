@@ -31,7 +31,7 @@
         android:layout_width="0dp"
         android:layout_height="0.5dp"
         android:layout_marginTop="8dp"
-        android:background="@color/gray_light"
+        android:background="@color/purple_light"
         app:layout_constraintEnd_toEndOf="@+id/walletTitle"
         app:layout_constraintStart_toStartOf="@+id/walletTitle"
         app:layout_constraintTop_toBottomOf="@+id/walletTitle" />
@@ -52,5 +52,15 @@
         app:layout_constraintTop_toBottomOf="@+id/walletTitle"
         tools:context="com.example.android.navigationadvancedsample.listscreen.Leaderboard"
         tools:listitem="@layout/row_transaction" />
+
+    <include
+        android:id="@+id/progress"
+        layout="@layout/progress"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/leaderboard_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
