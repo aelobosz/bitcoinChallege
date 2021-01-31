@@ -27,6 +27,10 @@ public class AdapterTransaction extends RecyclerView.Adapter<ViewHolderTransacti
 
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         RowTransactionBinding binding = RowTransactionBinding.inflate(layoutInflater);
+        binding.getRoot().setLayoutParams(new RecyclerView.LayoutParams(
+                RecyclerView.LayoutParams.MATCH_PARENT,
+                RecyclerView.LayoutParams.WRAP_CONTENT));
+
         return new ViewHolderTransaction(binding);
 
     }

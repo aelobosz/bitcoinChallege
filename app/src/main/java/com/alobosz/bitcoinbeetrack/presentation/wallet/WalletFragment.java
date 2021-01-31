@@ -17,11 +17,13 @@ import com.alobosz.bitcoinbeetrack.databinding.FragmentWalletBinding;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
+import com.alobosz.bitcoinbeetrack.presentation.MainActivity;
 import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.addresses.AddressViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 import com.alobosz.bitcoinbeetrack.util.QrGenerator;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -91,8 +93,8 @@ public class WalletFragment extends BaseFragment {
                         viewModel.getBalance(address.getAddress());
                     }
                     break;
-                default:
-                    //binding.progress.getRoot().setVisibility(View.GONE);
+                case EMPTY:
+                    mainViewModel.selectItem(R.id.address);
             }
         });
 

@@ -8,15 +8,13 @@ import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GetTransactionsUseCase;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 
-import java.util.Objects;
-
 import javax.inject.Inject;
 
 import static com.alobosz.bitcoinbeetrack.util.FunUtil.fromConsumer;
 
 @SuppressWarnings("rawtypes")
 public class TransactionViewModel extends ViewModel {
-    private GetTransactionsUseCase getTransactionsUseCase;
+    private final GetTransactionsUseCase getTransactionsUseCase;
 
     private final MutableLiveData<Result> _getTransactionLiveData = new MutableLiveData<>();
 
@@ -43,6 +41,8 @@ public class TransactionViewModel extends ViewModel {
                 fromConsumer((Throwable onError) -> {
                             if (null == _getTransactionLiveData.getValue() || _getTransactionLiveData.getValue().data == null)
                                 _getTransactionLiveData.postValue(Result.onError(onError));
+                            else
+                                _getTransactionLiveData.postValue(Result.onSuccess(_getTransactionLiveData.getValue().data));
                         }
                 )
         );

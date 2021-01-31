@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">BeeWallet</string>
     <string name="base_url">https://google.com</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_wallet">MainActivity</string>
     <string name="title_addresses">Addresses</string>
     <string name="title_orders">History</string>
@@ -21,4 +20,8 @@
     <string name="empty_data">you don\'t have any\ntransactions yet</string>
     <string name="error">A problem has occurred.\nPlease try again</string>
     <string name="retry">Retry</string>
+    <string name="go_to_wallet">Go to my wallet</string>
+    <string name="no_address_message">No wallet found. If you haven\'t created one yet, you can create it in the create address section</string>
+    <string name="ok">OK</string>
+    <string name="no_address">No address found</string>
 </resources>

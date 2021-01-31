@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/progress_bar"
+        android:id="@+id/successLottie"
         android:layout_width="@dimen/lottie_anim_size"
         android:layout_height="@dimen/lottie_anim_size"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -28,8 +28,33 @@
         android:text="@string/wallet_successfully"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/text_large"
-        app:layout_constraintEnd_toEndOf="@+id/progress_bar"
-        app:layout_constraintStart_toStartOf="@+id/progress_bar"
-        app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
+        app:layout_constraintEnd_toEndOf="@+id/successLottie"
+        app:layout_constraintStart_toStartOf="@+id/successLottie"
+        app:layout_constraintTop_toBottomOf="@+id/successLottie" />
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/abc_vector_test"
+        app:tint="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/goToWallet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="@string/go_to_wallet"
+        android:fontFamily="@font/pfsans_pro_reg"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

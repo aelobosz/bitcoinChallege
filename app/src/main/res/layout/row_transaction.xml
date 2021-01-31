@@ -45,24 +45,14 @@
         android:layout_width="0dp"
         android:layout_height="21dp"
         android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/pfsans_pro_thin"
         android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/logo"
         app:layout_constraintTop_toBottomOf="@+id/total"
         tools:text="28 January 2021" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="0.5dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@color/purple_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

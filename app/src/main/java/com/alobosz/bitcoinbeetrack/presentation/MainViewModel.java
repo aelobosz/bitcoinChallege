@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GetAddressUseCase;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
+import com.alobosz.bitcoinbeetrack.util.SingleLiveEvent;
 
 import javax.inject.Inject;
 
@@ -22,6 +23,16 @@ public class MainViewModel extends ViewModel {
         this.getAddressUseCase = getAddressUseCase;
     }
 
+    private final SingleLiveEvent<Integer> _selectedItemLiveData = new SingleLiveEvent<>();
+
+    public void selectItem(Integer itemId) {
+        _selectedItemLiveData.setValue(itemId);
+    }
+
+    public LiveData<Integer> getSelectedItemLiveData() {
+        return _selectedItemLiveData;
+    }
+
     private final MutableLiveData<Result> _getAddressLiveData = new MutableLiveData<>();
 
     public LiveData<Result> getAddressLiveData() {
@@ -35,8 +46,12 @@ public class MainViewModel extends ViewModel {
                 fromConsumer((Address address) ->
                         _getAddressLiveData.postValue(Result.onSuccess(address))
                 ),
-                fromConsumer((Throwable onError) ->
-                        _getAddressLiveData.postValue(Result.onError(onError))
+                fromConsumer((Throwable error) -> {
+                            if (error instanceof NullPointerException)
+                                _getAddressLiveData.postValue(Result.onEmpty());
+                            else
+                                _getAddressLiveData.postValue(Result.onError(error));
+                        }
                 )
         );
     }

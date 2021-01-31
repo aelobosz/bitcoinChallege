@@ -24,6 +24,7 @@ import com.alobosz.bitcoinbeetrack.presentation.transactions.adapter.AdapterTran
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -89,6 +90,8 @@ public class TransactionFragment extends BaseFragment {
                     viewModel.getTransactions(address.getAddress());
                 }
             }
+            if(result.status == Status.EMPTY)
+                mainViewModel.selectItem(R.id.address);
         });
 
         viewModel.getTransactionLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
@@ -102,6 +105,7 @@ public class TransactionFragment extends BaseFragment {
                     break;
                 case EMPTY:
                     hideSwipeRefresh();
+                    adapter.refreshAdapter(new ArrayList<>());
                     showVisibilityByState(false, true);
                     break;
                 case ERROR:

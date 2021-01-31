@@ -1,7 +1,11 @@
 package com.alobosz.bitcoinbeetrack.util
 
+import android.content.Context
 import android.content.Intent
 import android.util.SparseArray
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.util.forEach
 import androidx.core.util.set
 import androidx.fragment.app.FragmentManager
@@ -11,6 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.alobosz.bitcoinbeetrack.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.snackbar.Snackbar
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
@@ -232,3 +237,17 @@ private fun FragmentManager.isOnBackStack(backStackName: String): Boolean {
 }
 
 private fun getFragmentTag(index: Int) = "bottomNavigation#$index"
+
+
+inline fun Context.showAlertDialog(dialogBuilder: AlertDialog.Builder.() -> Unit) =
+        AlertDialog.Builder(this)
+                .apply(dialogBuilder)
+                .create()
+                .show()
+
+fun Context.showIndefiniteSnackBar(message: Int, view: View): Snackbar = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
+        .apply {
+            setAction(getString(R.string.ok)) { this.dismiss() }
+            setActionTextColor(ContextCompat.getColor(this@showIndefiniteSnackBar, R.color.colorAccent))
+            show()
+        }
