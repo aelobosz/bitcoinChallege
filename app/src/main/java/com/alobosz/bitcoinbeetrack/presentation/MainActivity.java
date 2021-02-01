@@ -54,8 +54,6 @@ public class MainActivity extends BaseActivity {
 
         observe();
         mainViewModel.getAddress();
-
-
     }
 
     @SuppressWarnings("rawtypes")

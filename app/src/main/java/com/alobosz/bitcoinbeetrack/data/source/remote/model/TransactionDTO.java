@@ -12,35 +12,35 @@ public class TransactionDTO {
     private String address;
     @SerializedName("total_received")
     @Expose
-    private Long
+    private Double
             totalReceived;
     @SerializedName("total_sent")
     @Expose
-    private Long
+    private Double
             totalSent;
     @SerializedName("balance")
     @Expose
-    private Long
+    private Double
             balance;
     @SerializedName("unconfirmed_balance")
     @Expose
-    private Long
+    private Double
             unconfirmedBalance;
     @SerializedName("final_balance")
     @Expose
-    private Long
+    private Double
             finalBalance;
     @SerializedName("n_tx")
     @Expose
-    private Long
+    private Double
             nTx;
     @SerializedName("unconfirmed_n_tx")
     @Expose
-    private Long
+    private Double
             unconfirmedNTx;
     @SerializedName("final_n_tx")
     @Expose
-    private Long
+    private Double
             finalNTx;
     @SerializedName("txs")
     @Expose
@@ -58,18 +58,18 @@ public class TransactionDTO {
         private String prevHash;
         @SerializedName("output_index")
         @Expose
-        private Long
+        private Double
                 outputIndex;
         @SerializedName("script")
         @Expose
         private String script;
         @SerializedName("output_value")
         @Expose
-        private Long
+        private Double
                 outputValue;
         @SerializedName("sequence")
         @Expose
-        private Long
+        private Double
                 sequence;
         @SerializedName("addresses")
         @Expose
@@ -85,7 +85,7 @@ public class TransactionDTO {
 
         @SerializedName("value")
         @Expose
-        private Long
+        private Double
                 value;
         @SerializedName("script")
         @Expose
@@ -93,12 +93,31 @@ public class TransactionDTO {
         @SerializedName("addresses")
         @Expose
         private List<String> addresses = null;
+
+
+
         @SerializedName("script_type")
         @Expose
         private String scriptType;
         @SerializedName("spent_by")
         @Expose
         private String spentBy;
+
+        public String getScriptType() {
+            return scriptType;
+        }
+
+        public void setScriptType(String scriptType) {
+            this.scriptType = scriptType;
+        }
+
+        public Double getValue() {
+            return value;
+        }
+
+        public void setValue(Double value) {
+            this.value = value;
+        }
     }
 
     @SuppressWarnings("FieldMayBeFinal")
@@ -109,7 +128,7 @@ public class TransactionDTO {
         private String blockHash;
         @SerializedName("block_height")
         @Expose
-        private Long
+        private Double
                 blockHeight;
         @SerializedName("hash")
         @Expose
@@ -119,15 +138,15 @@ public class TransactionDTO {
         private List<String> addresses = null;
         @SerializedName("total")
         @Expose
-        private Long
+        private Double
                 total;
         @SerializedName("fees")
         @Expose
-        private Long
+        private Double
                 fees;
         @SerializedName("size")
         @Expose
-        private Long
+        private Double
                 size;
         @SerializedName("preference")
         @Expose
@@ -143,34 +162,35 @@ public class TransactionDTO {
         private String received;
         @SerializedName("ver")
         @Expose
-        private Long
+        private Double
                 ver;
         @SerializedName("lock_time")
         @Expose
-        private Long
+        private Double
                 lockTime;
         @SerializedName("double_spend")
         @Expose
         private Boolean doubleSpend;
         @SerializedName("vin_sz")
         @Expose
-        private Long
+        private Double
                 vinSz;
         @SerializedName("vout_sz")
         @Expose
-        private Long
+        private Double
                 voutSz;
         @SerializedName("confirmations")
         @Expose
-        private Long
+        private Double
                 confirmations;
         @SerializedName("confidence")
         @Expose
-        private Long
+        private Double
                 confidence;
         @SerializedName("inputs")
         @Expose
         private List<Input> inputs = null;
+
         @SerializedName("outputs")
         @Expose
         private List<Output> outputs = null;
@@ -179,11 +199,18 @@ public class TransactionDTO {
             return confirmed;
         }
 
-        public Long
+        public Double
         getTotal() {
             return total;
         }
 
+        public List<Output> getOutputs() {
+            return outputs;
+        }
+
+        public void setOutputs(List<Output> outputs) {
+            this.outputs = outputs;
+        }
 
     }
 

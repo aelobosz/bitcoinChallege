@@ -8,8 +8,11 @@ import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
+
+import io.reactivex.Flowable;
 
 public class DataMapper {
     private static final Integer satoshi = 100000000;
@@ -46,15 +49,20 @@ public class DataMapper {
     public static Balance toBalance(BalanceDTO balanceDTO) {
         return new Balance(
                 balanceDTO.getAddress(),
-                balanceDTO.getBalance() == null ? zero : Integer.toString(balanceDTO.getBalance() / satoshi),
-                balanceDTO.getUnconfirmedBalance() == null ? zero : Integer.toString(balanceDTO.getUnconfirmedBalance() / satoshi),
-                balanceDTO.getFinalBalance() == null ? zero : Integer.toString(balanceDTO.getFinalBalance() / satoshi));
+                balanceDTO.getBalance() == null ? zero : String.format(
+                        Locale.getDefault(), "%.8f BTC", balanceDTO.getBalance() / satoshi),
+                balanceDTO.getUnconfirmedBalance() == null ? zero : String.format(
+                        Locale.getDefault(), "%.8f BTC", balanceDTO.getUnconfirmedBalance() / satoshi),
+                balanceDTO.getFinalBalance() == null ? zero : String.format(
+                        Locale.getDefault(), "%.8f BTC", balanceDTO.getFinalBalance() / satoshi));
 
     }
 
     public static Transactions.Transaction toTransaction(TransactionDTO.Tx tx) {
         return new Transactions.Transaction(
-                tx.getConfirmed(), tx.getTotal() == null ? zero : Long.toString(tx.getTotal() / satoshi));
+                tx.getConfirmed(),
+                getSatochisFromTransaction(tx)
+        );
 
     }
 
@@ -65,6 +73,16 @@ public class DataMapper {
                         .filter(Objects::nonNull)
                         .map(DataMapper::toTransaction)
                         .collect(Collectors.toList()));
+
+    }
+
+    private static String getSatochisFromTransaction(TransactionDTO.Tx tx) {
+        try {
+            return String.format(Locale.getDefault(), "%.8f", tx.getOutputs().get(1).getValue() / satoshi);
+        } catch (Throwable t) {
+            return "indeterminate";
+        }
+
 
     }
 }

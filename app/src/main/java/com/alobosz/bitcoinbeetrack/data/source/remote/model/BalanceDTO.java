@@ -10,43 +10,43 @@ public class BalanceDTO {
     private String address;
     @SerializedName("total_received")
     @Expose
-    private Integer totalReceived;
+    private Float totalReceived;
     @SerializedName("total_sent")
     @Expose
-    private Integer totalSent;
+    private Float totalSent;
     @SerializedName("balance")
     @Expose
-    private Integer balance;
+    private Float balance;
     @SerializedName("unconfirmed_balance")
     @Expose
-    private Integer unconfirmedBalance;
+    private Float unconfirmedBalance;
     @SerializedName("final_balance")
     @Expose
-    private Integer finalBalance;
+    private Float finalBalance;
     @SerializedName("n_tx")
     @Expose
-    private Integer nTx;
+    private Float nTx;
     @SerializedName("unconfirmed_n_tx")
     @Expose
-    private Integer unconfirmedNTx;
+    private Float unconfirmedNTx;
     @SerializedName("final_n_tx")
     @Expose
-    private Integer finalNTx;
+    private Float finalNTx;
 
 
     public String getAddress() {
         return address;
     }
 
-    public Integer getBalance() {
+    public Float getBalance() {
         return balance;
     }
 
-    public Integer getUnconfirmedBalance() {
+    public Float getUnconfirmedBalance() {
         return unconfirmedBalance;
     }
 
-    public Integer getFinalBalance() {
+    public Float getFinalBalance() {
         return finalBalance;
     }
 }
