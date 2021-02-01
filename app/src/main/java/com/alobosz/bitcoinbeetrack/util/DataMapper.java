@@ -76,11 +76,16 @@ public class DataMapper {
 
     private static String getSatochisFromTransaction(TransactionDTO.Tx tx) {
         try {
-            return String.format(Locale.getDefault(), "%.8f", tx.getOutputs().get(1).getValue() / satoshi);
+            Double total = tx
+                    .getOutputs()
+                    .stream()
+                    .filter(scripType -> scripType.getScriptType().equals("pay-to-pubkey-hash"))
+                    .collect(Collectors.toList())
+                    .get(0)
+                    .getValue();
+            return String.format(Locale.getDefault(), "%.8f", total / satoshi);
         } catch (Throwable t) {
             return "indeterminate";
         }
-
-
     }
 }
