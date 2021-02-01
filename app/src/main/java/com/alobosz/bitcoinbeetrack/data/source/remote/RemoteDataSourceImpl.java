@@ -1,10 +1,6 @@
 package com.alobosz.bitcoinbeetrack.data.source.remote;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
-import com.alobosz.bitcoinbeetrack.data.mapper.DataMapper;
+import com.alobosz.bitcoinbeetrack.util.DataMapper;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.domain.model.Transactions;

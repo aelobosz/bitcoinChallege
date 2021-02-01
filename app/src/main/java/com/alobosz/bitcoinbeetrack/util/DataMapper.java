@@ -1,4 +1,4 @@
-package com.alobosz.bitcoinbeetrack.data.mapper;
+package com.alobosz.bitcoinbeetrack.util;
 
 import android.os.Build;
 
@@ -14,8 +14,6 @@ import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
-
-import io.reactivex.functions.Function;
 
 public class DataMapper {
     public static Address toAddress(AddressDTO addressDTO) {

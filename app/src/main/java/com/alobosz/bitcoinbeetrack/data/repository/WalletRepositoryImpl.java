@@ -1,6 +1,6 @@
 package com.alobosz.bitcoinbeetrack.data.repository;
 
-import com.alobosz.bitcoinbeetrack.data.mapper.DataMapper;
+import com.alobosz.bitcoinbeetrack.util.DataMapper;
 import com.alobosz.bitcoinbeetrack.data.source.local.LocalDataSource;
 import com.alobosz.bitcoinbeetrack.data.source.remote.RemoteDataSource;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
