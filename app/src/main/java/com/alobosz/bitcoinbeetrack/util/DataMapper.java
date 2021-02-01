@@ -12,8 +12,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import io.reactivex.Flowable;
-
 public class DataMapper {
     private static final Integer satoshi = 100000000;
     private static final String zero = "0";
