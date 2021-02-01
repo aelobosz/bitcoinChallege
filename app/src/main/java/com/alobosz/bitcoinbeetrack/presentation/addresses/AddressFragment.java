@@ -124,6 +124,7 @@ public class AddressFragment extends BaseFragment {
                     break;
                 case SUCCESS: {
                     saveHasWallet();
+                    viewModel.generateAddress();
                     findNavController(this).navigate(R.id.action_addressFragment_to_successFragment);
                 }
                 break;
