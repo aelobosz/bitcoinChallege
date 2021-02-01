@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import javax.inject.Inject;
 
 public class WalletPreferences {
-    private SharedPreferences sharedPreferences;
+    private final SharedPreferences sharedPreferences;
 
     @Inject
     public WalletPreferences(SharedPreferences sharedPreferences) {

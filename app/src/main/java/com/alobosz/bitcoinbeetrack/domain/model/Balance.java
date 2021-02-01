@@ -1,5 +1,6 @@
 package com.alobosz.bitcoinbeetrack.domain.model;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public class Balance {
     String address;
     String balance;
@@ -18,7 +19,7 @@ public class Balance {
     }
 
     public void setBalance(String balance) {
-        balance = balance;
+        this.balance = balance;
     }
 
     public String getUnconfirmedBalance() {

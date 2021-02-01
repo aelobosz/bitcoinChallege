@@ -5,10 +5,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 import static com.alobosz.bitcoinbeetrack.util.DataBaseConstants.TABLE_ADDRESS;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 @Entity(tableName = TABLE_ADDRESS)
 public class AddressEntity {
     @PrimaryKey
@@ -52,11 +55,11 @@ public class AddressEntity {
         this.publicKey = publicKey;
     }
 
-    public String getWalletAddress() {
+    public @NotNull String getWalletAddress() {
         return walletAddress;
     }
 
-    public void setWalletAddress(String walletAddress) {
+    public void setWalletAddress(@NotNull String walletAddress) {
         this.walletAddress = walletAddress;
     }
 

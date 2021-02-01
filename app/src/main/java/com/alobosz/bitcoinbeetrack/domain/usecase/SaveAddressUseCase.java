@@ -8,7 +8,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
-import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class SaveAddressUseCase extends BaseSingleUseCase<Long> {

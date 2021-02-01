@@ -17,10 +17,6 @@ public class AdapterTransaction extends RecyclerView.Adapter<ViewHolderTransacti
     public AdapterTransaction() {
     }
 
-    public AdapterTransaction(List<Transactions.Transaction> transactions) {
-        this.transactions = transactions;
-    }
-
     @NonNull
     @Override
     public ViewHolderTransaction onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -1,8 +1,6 @@
 package com.alobosz.bitcoinbeetrack.domain.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public class Address {
 
     private String _private;

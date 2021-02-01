@@ -3,6 +3,7 @@ package com.alobosz.bitcoinbeetrack.data.source.remote.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@SuppressWarnings("unused")
 public class BalanceDTO {
     @SerializedName("address")
     @Expose

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -68,7 +69,10 @@ public class TransactionFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.transactionList.setAdapter(adapter);
-        binding.swiperefresh.setColorSchemeColors(getResources().getColor(R.color.colorAccent));
+        binding.swiperefresh.setColorSchemeColors(
+                ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorAccent));
         mainViewModel.getAddress();
         binding.swiperefresh.setOnRefreshListener(
                 () -> mainViewModel.getAddress()
@@ -80,7 +84,6 @@ public class TransactionFragment extends BaseFragment {
         observe();
     }
 
-    @SuppressWarnings("RedundantCast")
     private void observe() {
 
         mainViewModel.getAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {

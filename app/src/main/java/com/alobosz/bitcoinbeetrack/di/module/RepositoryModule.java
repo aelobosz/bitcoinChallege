@@ -10,6 +10,7 @@ import com.alobosz.bitcoinbeetrack.domain.repository.WalletRepository;
 import dagger.Binds;
 import dagger.Module;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 @Module
 abstract public class RepositoryModule {
 

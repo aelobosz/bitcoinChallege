@@ -4,11 +4,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.alobosz.bitcoinbeetrack.domain.usecase.GetAddressUseCase;
 import com.alobosz.bitcoinbeetrack.domain.usecase.GetBalanceUseCase;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
-
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -19,9 +16,7 @@ public class WalletViewModel extends ViewModel {
     private final GetBalanceUseCase getBalanceUseCase;
 
     @Inject
-    public WalletViewModel(
-            GetBalanceUseCase getBalanceUseCase,
-            GetAddressUseCase getAddressUseCase) {
+    public WalletViewModel(GetBalanceUseCase getBalanceUseCase) {
         this.getBalanceUseCase = getBalanceUseCase;
     }
 

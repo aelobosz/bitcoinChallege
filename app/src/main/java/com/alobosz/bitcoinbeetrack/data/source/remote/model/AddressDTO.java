@@ -46,8 +46,4 @@ public class AddressDTO {
         return wif;
     }
 
-    public void setWif(String wif) {
-        this.wif = wif;
-    }
-
 }

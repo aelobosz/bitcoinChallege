@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,22 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.databinding.FragmentWalletBinding;
 import com.alobosz.bitcoinbeetrack.domain.model.Address;
 import com.alobosz.bitcoinbeetrack.domain.model.Balance;
 import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
-import com.alobosz.bitcoinbeetrack.presentation.MainActivity;
 import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
-import com.alobosz.bitcoinbeetrack.presentation.addresses.AddressViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
 import com.alobosz.bitcoinbeetrack.util.QrGenerator;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 import static com.alobosz.bitcoinbeetrack.util.ClipBoardUtil.copyToClipboard;
 
@@ -70,13 +63,14 @@ public class WalletFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         observe();
-        binding.walletAddressContainer.clipboard.setOnClickListener(v -> {
-            copyToClipboard(getContext(), binding.walletAddressContainer.walletAddress.getText().toString());
-        });
+        binding.walletAddressContainer.clipboard.setOnClickListener(v ->
+                copyToClipboard(
+                        getContext(),
+                        binding.walletAddressContainer.walletAddress.getText().toString()));
         mainViewModel.getAddress();
     }
 
-    @SuppressWarnings({"RedundantCast", "rawtypes"})
+    @SuppressWarnings("rawtypes")
     private void observe() {
         mainViewModel.getAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
             switch (result.status) {

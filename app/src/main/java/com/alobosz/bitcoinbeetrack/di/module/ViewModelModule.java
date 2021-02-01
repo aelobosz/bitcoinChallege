@@ -15,6 +15,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
 
+@SuppressWarnings({"unused", "RedundantSuppression"})
 @Module
 abstract public class ViewModelModule {
     @Binds

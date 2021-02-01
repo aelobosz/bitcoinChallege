@@ -18,6 +18,7 @@ public class Transactions {
     }
 
 
+    @SuppressWarnings({"unused", "RedundantSuppression"})
     public static class Transaction {
         private String date;
         private String total;

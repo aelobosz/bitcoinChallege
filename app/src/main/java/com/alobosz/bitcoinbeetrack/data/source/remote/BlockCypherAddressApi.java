@@ -4,9 +4,6 @@ import com.alobosz.bitcoinbeetrack.data.source.remote.model.AddressDTO;
 import com.alobosz.bitcoinbeetrack.data.source.remote.model.BalanceDTO;
 import com.alobosz.bitcoinbeetrack.data.source.remote.model.TransactionDTO;
 import com.alobosz.bitcoinbeetrack.data.util.ApiConstants;
-import com.alobosz.bitcoinbeetrack.domain.model.Address;
-import com.alobosz.bitcoinbeetrack.domain.model.Balance;
-import com.alobosz.bitcoinbeetrack.domain.model.Transactions;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;

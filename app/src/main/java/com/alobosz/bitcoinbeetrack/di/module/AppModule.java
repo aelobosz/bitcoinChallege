@@ -1,10 +1,7 @@
 package com.alobosz.bitcoinbeetrack.di.module;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import androidx.preference.PreferenceManager;
 
 import com.alobosz.bitcoinbeetrack.R;
 import com.alobosz.bitcoinbeetrack.util.PreferencesConstants;

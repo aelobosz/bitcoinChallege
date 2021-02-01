@@ -1,9 +1,5 @@
 package com.alobosz.bitcoinbeetrack.util;
 
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
-
 import com.alobosz.bitcoinbeetrack.data.source.local.model.AddressEntity;
 import com.alobosz.bitcoinbeetrack.data.source.remote.model.AddressDTO;
 import com.alobosz.bitcoinbeetrack.data.source.remote.model.BalanceDTO;
@@ -16,6 +12,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class DataMapper {
+    private static final Integer satoshi = 100000000;
+    private static final String zero = "0";
+
     public static Address toAddress(AddressDTO addressDTO) {
         return new Address(
                 addressDTO.getPrivate(),
@@ -47,20 +46,19 @@ public class DataMapper {
     public static Balance toBalance(BalanceDTO balanceDTO) {
         return new Balance(
                 balanceDTO.getAddress(),
-                balanceDTO.getBalance() == null ? "0" : Integer.toString(balanceDTO.getBalance()),
-                balanceDTO.getUnconfirmedBalance() == null ? "0" : Integer.toString(balanceDTO.getUnconfirmedBalance()),
-                balanceDTO.getFinalBalance() == null ? "0" : Integer.toString(balanceDTO.getFinalBalance()));
+                balanceDTO.getBalance() == null ? zero : Integer.toString(balanceDTO.getBalance() / satoshi),
+                balanceDTO.getUnconfirmedBalance() == null ? zero : Integer.toString(balanceDTO.getUnconfirmedBalance() / satoshi),
+                balanceDTO.getFinalBalance() == null ? zero : Integer.toString(balanceDTO.getFinalBalance() / satoshi));
 
     }
 
     public static Transactions.Transaction toTransaction(TransactionDTO.Tx tx) {
         return new Transactions.Transaction(
-                tx.getConfirmed(), tx.getTotal() == null ? "0" : Long.toString(tx.getTotal()));
+                tx.getConfirmed(), tx.getTotal() == null ? zero : Long.toString(tx.getTotal() / satoshi));
 
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static Transactions toTransactions(TransactionDTO transactionDTO) {
         return new Transactions(
                 transactionDTO.getTxs().stream()

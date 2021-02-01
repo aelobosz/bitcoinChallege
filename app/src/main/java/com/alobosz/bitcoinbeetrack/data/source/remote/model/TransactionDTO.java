@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"unused", "FieldMayBeFinal", "RedundantSuppression"})
 public class TransactionDTO {
     @SerializedName("address")
     @Expose
@@ -50,6 +50,7 @@ public class TransactionDTO {
         return txs;
     }
 
+    @SuppressWarnings("FieldMayBeFinal")
     public static class Input {
 
         @SerializedName("prev_hash")
@@ -79,6 +80,7 @@ public class TransactionDTO {
 
     }
 
+    @SuppressWarnings("FieldMayBeFinal")
     public static class Output {
 
         @SerializedName("value")
@@ -99,6 +101,7 @@ public class TransactionDTO {
         private String spentBy;
     }
 
+    @SuppressWarnings("FieldMayBeFinal")
     public static class Tx {
 
         @SerializedName("block_hash")

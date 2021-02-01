@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.room.Room;
 
 import com.alobosz.bitcoinbeetrack.data.source.local.BitcoinWalletDatabase;
+import com.alobosz.bitcoinbeetrack.util.DataBaseConstants;
 
 import javax.inject.Singleton;
 
@@ -19,14 +20,7 @@ public class DataBaseModule {
         return Room.databaseBuilder(
                 appContext,
                 BitcoinWalletDatabase.class,
-                "database-bitcoin-wallet")
+                DataBaseConstants.DATABASE_NAME)
                 .fallbackToDestructiveMigration().build();
     }
-
-   /* @Singleton
-    @Provides
-    BitcoinDao provideUserDao(BitcoinWalletDatabase bitcoinWalletDatabase)
-    {
-        return bitcoinWalletDatabase.userDao;
-    }*/
 }
