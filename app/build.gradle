@@ -5,7 +5,7 @@ plugins {
 
 def versionMajor = 1
 def versionMinor = 0
-def versionPatch = 0
+def versionPatch = 1
 
 android {
     compileSdkVersion 30
@@ -16,7 +16,7 @@ android {
         minSdkVersion 24
         targetSdkVersion 30
         versionCode versionMajor * 10000 + versionMinor * 100 + versionPatch
-        versionName "${versionMajor}.${versionMinor}.${versionPatch}"
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}-RC"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
