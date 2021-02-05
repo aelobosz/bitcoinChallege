@@ -8,7 +8,7 @@ abstract public class BaseUseCase {
     protected CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public void disposeLast() {
-        if (null != lastDisposable && lastDisposable.isDisposed()) {
+        if (null != lastDisposable && !lastDisposable.isDisposed()) {
             lastDisposable.dispose();
         }
     }
