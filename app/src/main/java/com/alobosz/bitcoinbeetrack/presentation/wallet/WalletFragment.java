@@ -18,6 +18,7 @@ import com.alobosz.bitcoinbeetrack.presentation.ApplicationBitcoinWallet;
 import com.alobosz.bitcoinbeetrack.presentation.MainViewModel;
 import com.alobosz.bitcoinbeetrack.presentation.base.BaseFragment;
 import com.alobosz.bitcoinbeetrack.presentation.base.Result;
+import com.alobosz.bitcoinbeetrack.presentation.base.Status;
 import com.alobosz.bitcoinbeetrack.util.QrGenerator;
 
 import org.jetbrains.annotations.NotNull;
@@ -73,20 +74,14 @@ public class WalletFragment extends BaseFragment {
     @SuppressWarnings("rawtypes")
     private void observe() {
         mainViewModel.getAddressLiveData().observe(getViewLifecycleOwner(), (Observer<Result>) result -> {
-            switch (result.status) {
-                case LOADING:
-                    //binding.progress.getRoot().setVisibility(View.VISIBLE);
-                    break;
-                case SUCCESS:
-                    Address address = (Address) result.data;
-                    //binding.progress.getRoot().setVisibility(View.GONE);
-                    if (address != null) {
-                        binding.walletView.imageQR.setImageBitmap(QrGenerator.createQR(
-                                address.getAddress(), 150, 150));
-                        binding.walletAddressContainer.walletAddress.setText(address.getAddress());
-                        viewModel.getBalance(address.getAddress());
-                    }
-                    break;
+            if (result.status == Status.SUCCESS) {
+                Address address = (Address) result.data;
+                if (address != null) {
+                    binding.walletView.imageQR.setImageBitmap(QrGenerator.createQR(
+                            address.getAddress(), 150, 150));
+                    binding.walletAddressContainer.walletAddress.setText(address.getAddress());
+                    viewModel.getBalance(address.getAddress());
+                }
             }
         });
 
@@ -96,7 +91,6 @@ public class WalletFragment extends BaseFragment {
             switch (result.status) {
                 case ERROR:
                     binding.cardBalance.smallProgress.setVisibility(View.GONE);
-                    //TODO:show error
                     break;
                 case SUCCESS:
                     binding.cardBalance.smallProgress.setVisibility(View.GONE);
